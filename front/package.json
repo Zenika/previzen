@@ -1,0 +1,62 @@
+{
+  "name": "previzen",
+  "description": "PreviZen is a business prevision tool intended to manage the Zenika's consultants, agencies and customers ecosystem.",
+  "version": "0.0.1",
+  "contributors": [
+    {
+      "name": "Anthony Pillot",
+      "email": "anthony.pillot@zenika.com",
+      "url": "https://anthony-pillot.com/"
+    },
+    {
+      "name": "Micke Niepceron",
+      "email": "micke.niepceron@zenika.com"
+    }
+  ],
+  "license": "",
+  "homepage": "https://github.com/Zenika/previzen",
+  "bugs": {
+    "url": "https://github.com/Zenika/previzen/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zenika/previzen.git"
+  },
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.6.4",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
