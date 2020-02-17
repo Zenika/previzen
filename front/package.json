@@ -1,28 +1,8 @@
 {
   "name": "previzen",
-  "description": "PreviZen is a business prevision tool intended to manage the Zenika's consultants, agencies and customers ecosystem.",
   "version": "0.0.1",
-  "contributors": [
-    {
-      "name": "Anthony Pillot",
-      "email": "anthony.pillot@zenika.com",
-      "url": "https://anthony-pillot.com/"
-    },
-    {
-      "name": "Micke Niepceron",
-      "email": "micke.niepceron@zenika.com"
-    }
-  ],
-  "license": "",
-  "homepage": "https://github.com/Zenika/previzen",
-  "bugs": {
-    "url": "https://github.com/Zenika/previzen/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zenika/previzen.git"
-  },
   "private": true,
+  "description": "PreviZen is a business prevision tool intended to manage the Zenika's consultants, agencies and customers ecosystem.",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -30,7 +10,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuetify": "^2.2.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
@@ -39,7 +20,11 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
-    "vue-template-compiler": "^2.6.11"
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-vuetify": "~2.0.5",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify-loader": "^1.3.0"
   },
   "eslintConfig": {
     "root": true,
@@ -58,5 +43,25 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/Zenika/previzen/issues"
+  },
+  "contributors": [
+    {
+      "name": "Anthony Pillot",
+      "email": "anthony.pillot@zenika.com",
+      "url": "https://anthony-pillot.com/"
+    },
+    {
+      "name": "Micke Niepceron",
+      "email": "micke.niepceron@zenika.com"
+    }
+  ],
+  "homepage": "https://github.com/Zenika/previzen",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zenika/previzen.git"
+  }
 }
