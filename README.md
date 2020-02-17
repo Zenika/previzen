@@ -13,7 +13,7 @@ A **business prevision tool** intended to manage the Zenika's consultants, agenc
 What things you need to install the software and how to install them
 
 ```
-(TODO)Give examples
+(TODO) Give examples
 ```
 
 ### Installing
