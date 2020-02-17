@@ -1,8 +1,28 @@
 {
-  "name": "previzen",
+  "name": "previzen-vue.js",
   "version": "0.0.1",
   "private": true,
   "description": "PreviZen is a business prevision tool intended to manage the Zenika's consultants, agencies and customers ecosystem.",
+  "license": "",
+  "contributors": [
+    {
+      "name": "Anthony Pillot",
+      "email": "anthony.pillot@zenika.com",
+      "url": "https://anthony-pillot.com/"
+    },
+    {
+      "name": "Micke Niepceron",
+      "email": "micke.niepceron@zenika.com"
+    }
+  ],
+  "homepage": "https://github.com/Zenika/previzen",
+  "bugs": {
+    "url": "https://github.com/Zenika/previzen/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zenika/previzen.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -43,25 +63,5 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "bugs": {
-    "url": "https://github.com/Zenika/previzen/issues"
-  },
-  "contributors": [
-    {
-      "name": "Anthony Pillot",
-      "email": "anthony.pillot@zenika.com",
-      "url": "https://anthony-pillot.com/"
-    },
-    {
-      "name": "Micke Niepceron",
-      "email": "micke.niepceron@zenika.com"
-    }
-  ],
-  "homepage": "https://github.com/Zenika/previzen",
-  "license": "",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zenika/previzen.git"
-  }
+  ]
 }
