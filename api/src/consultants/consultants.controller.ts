@@ -1,9 +1,10 @@
-import { Controller, Body, Get, Post, Patch, Delete } from '@nestjs/common';
+import { Controller, Body, Get, Post, Patch, Delete, Param } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 
 @Controller('consultants')
 export class ConsultantsController {
     constructor(private readonly consultantsService: ConsultantsService) {}
+
     @Post()
     createConsultants(
         @Body('first_name') first_name: string,
@@ -11,7 +12,7 @@ export class ConsultantsController {
         @Body('starts_after_month') starts_after_month: number,
         @Body('starts_after_years') starts_after_years: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_years: number,
+        @Body('leaves_after_years') leaves_after_years: number
         ) {
         const generatedId = this.consultantsService.insertConsultant(
             first_name,
@@ -21,17 +22,25 @@ export class ConsultantsController {
             leaves_after_month,
             leaves_after_years
             );
-        return { id: generatedId }
+        return { id: generatedId };
     }
+
     @Get()
     getAllConsultants() {
         return this.consultantsService.getConsultants();
     }
-    @Patch()
+
+    @Get(':id')
+    getConsultant(@Param('id') consulId) {
+        return this.consultantsService.getConsultant(consulId);
+    }
+
+    @Patch() // TODO
     updateConsultant(): string {
         return 'Consultant updated'
     }
-    @Delete()
+
+    @Delete() // TODO
     deleteConsultant(): string {
         return 'Consultant deleted'
     }
