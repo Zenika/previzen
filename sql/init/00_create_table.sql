@@ -33,6 +33,7 @@ CREATE TABLE "billable_day" (
 
 CREATE TABLE "consultant" (
   "id_consultant" integer PRIMARY KEY,
+  "id_agency" integer NOT NULL,
   "first_name_consultant" text NOT NULL,
   "last_name_consultant" text NOT NULL,
   "starts_after_month_consultant" integer NOT NULL,
@@ -48,9 +49,9 @@ CREATE TABLE "customer" (
 
 CREATE TABLE "agency" (
   "id_agency" integer PRIMARY KEY,
-  "id_consultant" integer NOT NULL,
   "name_agency" text NOT NULL,
-  "city_agency" text NOT NULL
+  "city_agency" text NOT NULL,
+  "country_agency" text NOT NULL
 );
 
 CREATE TABLE "daily_cost" (
@@ -83,4 +84,4 @@ ALTER TABLE "staffing" ADD FOREIGN KEY ("id_consultant") REFERENCES "consultant"
 
 ALTER TABLE "staffing" ADD FOREIGN KEY ("id_customer") REFERENCES "customer" ("id_customer");
 
-ALTER TABLE "agency" ADD FOREIGN KEY ("id_consultant") REFERENCES "consultant" ("id_consultant");
+ALTER TABLE "consultant" ADD FOREIGN KEY ("id_agency") REFERENCES "agency" ("id_agency");
