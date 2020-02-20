@@ -30,13 +30,13 @@ export class ConsultantsService {
         return [...this.consultants];
     }
 
-    getConsultant(consultantId: string) {
-        const consultant = this.findConsultant(consultantId)[0];
+    getConsultant(consulId: string) {
+        const consultant = this.findConsultant(consulId)[0];
         return { ...consultant };
     }
 
     updateConsultant(
-            consultantId: string,
+            consulId: string,
             first_name: string,
             last_name: string,
             starts_after_month: number,
@@ -44,7 +44,7 @@ export class ConsultantsService {
             leaves_after_month: number,
             leaves_after_years: number,
         ) {
-        const [consultant, index] = this.findConsultant(consultantId);
+        const [consultant, index] = this.findConsultant(consulId);
         const updateConsultant = { ...consultant };
         if (last_name) {
             updateConsultant.last_name = last_name;
@@ -66,6 +66,11 @@ export class ConsultantsService {
         }
           this.consultants[index] = updateConsultant;
         }
+    
+    deleteConsultant(consulId: string) {
+        const index = this.findConsultant(consulId)[1];
+        this.consultants.splice(index, 1);
+    }
 
     private findConsultant(id: string): [Consultant, number] {
         const consultantIndex = this.consultants.findIndex(cons => cons.id === parseInt(id));

@@ -1,6 +1,7 @@
-import { Controller, Body, Get, Post, Patch, Delete, Param } from '@nestjs/common';
+import { Controller, Body, Get, Post, Patch, Delete, Param, Put, Req } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
-import { response } from 'express';
+import { Request } from 'express';
+import { Consultant } from './consultants.model';
 
 @Controller('consultants')
 export class ConsultantsController {
@@ -44,7 +45,7 @@ export class ConsultantsController {
         @Body('starts_after_month') starts_after_month: number,
         @Body('starts_after_years') starts_after_years: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_years: number
+        @Body('leaves_after_years') leaves_after_years: number,
     ) {
         this.consultantsService.updateConsultant(
             consulId,
@@ -55,10 +56,16 @@ export class ConsultantsController {
             leaves_after_month,
             leaves_after_years
         );
+        return `Consultant's profile has been updated`;
     }
 
-    @Delete() // TODO
-    deleteConsultant(): string {
-        return 'Consultant deleted'
+    @Delete(':id')
+    removeConsultant(
+        @Param('id') consulId: string
+    ) {
+        this.consultantsService.deleteConsultant(
+            consulId
+        );
+        return `Consultant's profile has been deleted`;
     }
 }
