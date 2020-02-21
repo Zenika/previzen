@@ -10,9 +10,9 @@ export class ConsultantsController {
         @Body('first_name') first_name: string,
         @Body('last_name') last_name: string,
         @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_years') starts_after_year: number,
+        @Body('starts_after_year') starts_after_year: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_year: number
+        @Body('leaves_after_year') leaves_after_year: number
         ) {
         const generatedId = this.consultantsService.insertConsultant(
             first_name,
@@ -41,9 +41,9 @@ export class ConsultantsController {
         @Body('first_name') first_name: string,
         @Body('last_name') last_name: string,
         @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_years') starts_after_year: number,
+        @Body('starts_after_year') starts_after_year: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_year: number,
+        @Body('leaves_after_year') leaves_after_year: number,
     ) {
         this.consultantsService.updateConsultant(
             consulId,
