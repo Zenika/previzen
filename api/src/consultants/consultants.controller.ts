@@ -58,13 +58,6 @@ export class ConsultantsController {
     }
 
     @Put(':id')
-    async putInConsultant(@Req() req) {
-        const id = req.params.id;
-        if (!id) {
-            throw new HttpException('ID parameter is missing', HttpStatus.BAD_REQUEST);
-            await this.consultantsService.putInConsultant(id, req.body);
-        }
-    }
 
 
     @Delete(':id')

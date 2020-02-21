@@ -66,10 +66,6 @@ export class ConsultantsService {
         }
           this.consultants[index] = updateConsultant;
         }
-    
-    putInConsultant(consulId: string) {
-        return this.consultants.findConsultant(consulId)
-    }
 
     deleteConsultant(consulId: string) {
         const index = this.findConsultant(consulId)[1];
