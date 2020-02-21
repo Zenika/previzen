@@ -6,8 +6,16 @@ import { ConsultantsController } from './consultants/consultants.controller';
 import { ConsultantsModule } from './consultants/consultants.module';
 
 @Module({
-  imports: [ConsultantsModule],
-  controllers: [AppController, ConsultantsController],
-  providers: [AppService, ConsultantsService],
+  imports: [
+    ConsultantsModule,
+  ],
+  controllers: [
+    AppController,
+    ConsultantsController
+  ],
+  providers: [
+    AppService,
+    ConsultantsService
+  ],
 })
-export class AppModule {}
+export class AppModule { }

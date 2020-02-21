@@ -1,7 +1,5 @@
 import { Controller, Body, Get, Post, Patch, Delete, Param, Put, Req } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
-import { Request } from 'express';
-import { Consultant } from './consultants.model';
 
 @Controller('consultants')
 export class ConsultantsController {
@@ -12,17 +10,17 @@ export class ConsultantsController {
         @Body('first_name') first_name: string,
         @Body('last_name') last_name: string,
         @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_years') starts_after_years: number,
+        @Body('starts_after_years') starts_after_year: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_years: number
+        @Body('leaves_after_years') leaves_after_year: number
         ) {
         const generatedId = this.consultantsService.insertConsultant(
             first_name,
             last_name,
             starts_after_month,
-            starts_after_years,
+            starts_after_year,
             leaves_after_month,
-            leaves_after_years
+            leaves_after_year
             );
         return { id: generatedId };
     }
@@ -43,21 +41,25 @@ export class ConsultantsController {
         @Body('first_name') first_name: string,
         @Body('last_name') last_name: string,
         @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_years') starts_after_years: number,
+        @Body('starts_after_years') starts_after_year: number,
         @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_years') leaves_after_years: number,
+        @Body('leaves_after_years') leaves_after_year: number,
     ) {
         this.consultantsService.updateConsultant(
             consulId,
             first_name,
             last_name,
             starts_after_month,
-            starts_after_years,
+            starts_after_year,
             leaves_after_month,
-            leaves_after_years
+            leaves_after_year
         );
         return `Consultant's profile has been updated`;
     }
+
+    @Put(':id')
+
+
 
     @Delete(':id')
     removeConsultant(
