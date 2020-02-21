@@ -40,9 +40,9 @@ export class ConsultantsService {
             first_name: string,
             last_name: string,
             starts_after_month: number,
-            starts_after_years: number,
+            starts_after_year: number,
             leaves_after_month: number,
-            leaves_after_years: number,
+            leaves_after_year: number,
         ) {
         const [consultant, index] = this.findConsultant(consulId);
         const updateConsultant = { ...consultant };
@@ -55,18 +55,22 @@ export class ConsultantsService {
         if (starts_after_month) {
             updateConsultant.starts_after_month = starts_after_month;
         }
-        if (starts_after_years) {
-            updateConsultant.starts_after_years = starts_after_years;
+        if (starts_after_year) {
+            updateConsultant.starts_after_year = starts_after_year;
         }
         if (leaves_after_month) {
             updateConsultant.leaves_after_month = leaves_after_month;
         }
-        if (leaves_after_years) {
-            updateConsultant.leaves_after_years = leaves_after_years;
+        if (leaves_after_year) {
+            updateConsultant.leaves_after_year = leaves_after_year;
         }
           this.consultants[index] = updateConsultant;
         }
     
+    putInConsultant(consulId: string) {
+        return this.consultants.findConsultant(consulId)
+    }
+
     deleteConsultant(consulId: string) {
         const index = this.findConsultant(consulId)[1];
         this.consultants.splice(index, 1);

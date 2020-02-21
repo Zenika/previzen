@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Post, Patch, Delete, Param, Put, Req } from '@nestjs/common';
+import { Controller, Body, Get, Post, Patch, Delete, Param, Put, Req, HttpException, HttpStatus } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 
 @Controller('consultants')
@@ -58,7 +58,13 @@ export class ConsultantsController {
     }
 
     @Put(':id')
-
+    async putInConsultant(@Req() req) {
+        const id = req.params.id;
+        if (!id) {
+            throw new HttpException('ID parameter is missing', HttpStatus.BAD_REQUEST);
+            await this.consultantsService.putInConsultant(id, req.body);
+        }
+    }
 
 
     @Delete(':id')
