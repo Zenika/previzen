@@ -45,7 +45,7 @@
         </v-content>
 
         <v-footer app color="brown">
-            <span class="white--text">&copy; {{application.corporation}}, {{application.year}}</span>
+            <span class="white--text">&copy; {{application.year}}, {{application.corporation}}</span>
             <v-spacer/>
 
             <span class="white--text">{{application.version}}</span>
