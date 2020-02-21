@@ -28,6 +28,10 @@
 
             <img alt="zenika_logo" id="zenika_logo" src="./assets/png/zenika_logo_white.png">
 
+            <div class="typewriter">
+                <h1 class="">The simple way to manage your Zenika's consultants.</h1>
+            </div>
+
             <v-spacer/>
 
             <v-toolbar-title class="font-pacifico">{{application.name}}</v-toolbar-title>
@@ -92,7 +96,33 @@
 
     #zenika_logo {
         width: 70px;
-        padding-top: 40px;
+        padding-top: 30px;
+    }
+
+    .typewriter h1 {
+        padding-left: 20px;
+        font-size: 20px;
+
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: .15em solid white; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: 0.10em; /* Adjust as needed */
+        animation:
+                typing 4s steps(40, end),
+                blink-caret .75s step-end infinite;
+    }
+
+    /* The typing effect */
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    /* The typewriter cursor effect */
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: white; }
     }
 
 </style>
