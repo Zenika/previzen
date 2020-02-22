@@ -26,7 +26,7 @@
 
         <v-app-bar app color="brown" dark>
 
-            <img alt="zenika_logo" id="zenika_logo" src="./assets/png/zenika_logo_white.png">
+            <img class="image-rotate" alt="zenika_logo" id="zenika_logo" src="./assets/png/zenika_logo_white.png">
 
             <div class="typewriter">
                 <h1 class="">The simple way to manage your Zenika's consultants.</h1>
@@ -97,6 +97,16 @@
     #zenika_logo {
         width: 70px;
         padding-top: 30px;
+    }
+
+    .image-rotate {
+        overflow: hidden;
+        transition-duration: 0.8s;
+        transition-property: transform;
+    }
+    .image-rotate:hover {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
     }
 
     .typewriter h1 {
