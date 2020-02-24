@@ -106,6 +106,10 @@ export default {
   padding-top: 30px;
 }
 
+/*
+TODO Replace rotate effect by grow effect, or bounce ?
+*/
+
 .image-rotate {
   overflow: hidden;
   transition-duration: 0.8s;
