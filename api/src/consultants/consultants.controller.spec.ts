@@ -3,8 +3,8 @@ import { ConsultantsController } from './consultants.controller';
 import { ConsultantsService } from './consultants.service';
 
 describe('ConsultantsController', () => {
-  let consultantsController: ConsultantsController;
-  let consultantsService: ConsultantsService;
+  let controller: ConsultantsController;
+  let service: ConsultantsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -12,15 +12,13 @@ describe('ConsultantsController', () => {
       providers: [ConsultantsService]
     }).compile();
 
-    consultantsController = module.get<ConsultantsController>(ConsultantsController);
-    consultantsService = module.get<ConsultantsService>(ConsultantsService);
+    controller = module.get<ConsultantsController>(ConsultantsController);
+    service = module.get<ConsultantsService>(ConsultantsService);
   });
 
-  describe('getConsultants', () => {
-    it('(GET) should get consultants', async () => {
-      const result = [];
-      jest.spyOn(consultantsService, 'getConsultants').mockImplementation(() => result);
-    expect(consultantsController.getAllConsultants()).toBe(result);
+  describe('get consultants', () => {
+    it('getAllConsultants', async () => {
+      expect(await controller.getAllConsultants());
     });
   });
 });
