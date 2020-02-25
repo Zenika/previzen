@@ -9,5 +9,6 @@ import {Consultant} from "./consultant.entity";
     providers: [ConsultantsService],
     controllers: [ConsultantsController]
 })
+
 export class ConsultantsModule {
 }

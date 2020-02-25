@@ -6,7 +6,7 @@ import {Agency} from "./agencies/agency.entity";
 import {AgenciesModule} from './agencies/agencies.module';
 import {AppService} from "./app.service";
 import {AppController} from "./app.controller";
-import { ConsultantsModule } from './consultants/consultants.module';
+import {ConsultantsModule} from './consultants/consultants.module';
 
 @Module({
     imports: [

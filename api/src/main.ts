@@ -11,7 +11,6 @@ async function bootstrap() {
     printHostSystemInformation();
 }
 
-
 function printHostSystemInformation() {
 
     const os = require('os');
