@@ -10,7 +10,7 @@ CREATE ROLE application WITH
   NOCREATEDB
   NOCREATEROLE
   REPLICATION
-  PASSWORD 'md5e66e3293ce98ff1194823af76e199245';
+  PASSWORD 'password';
 
 COMMENT ON ROLE application IS 'Application account used by Nest.js API with restrictives access.';
 
