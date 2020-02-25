@@ -8,17 +8,17 @@ async function bootstrap() {
     app.enableCors();
     await app.listen(applicationPort);
 
-    printHostInformation()
+    printHostSystemInformation();
 }
 
 
-function printHostInformation() {
+function printHostSystemInformation() {
 
     const os = require('os');
 
     let hostInformation = [os.hostname(), os.platform(), os.arch()];
 
-    console.log('\nNest.JS API is running on: ');
+    console.log('\nNest.js API is running on: ');
     console.log(hostInformation);
     console.log('\nTotal memory system in gigabyte:');
     console.log((os.totalmem() / 1000000000));
