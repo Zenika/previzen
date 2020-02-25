@@ -5,22 +5,24 @@ import { Consultant } from './consultants.model';
 export class ConsultantsService {
     consultants: Consultant[] = [];
     insertConsultant(
-            first_name: string,
-            last_name: string,
-            starts_after_month: number,
-            starts_after_years: number,
-            leaves_after_month: number,
-            leaves_after_years: number,
+            id_agency: number,
+            first_name_consultant: string,
+            last_name_consultant: string,
+            starts_after_month_consultant: number,
+            starts_after_year_consultant: number,
+            leaves_after_month_consultant: number,
+            leaves_after_year_consultant: number,
         ) {
         const consulId = Date.now();
         const newConsultant = new Consultant(
                 consulId,
-                first_name,
-                last_name,
-                starts_after_month,
-                starts_after_years,
-                leaves_after_month,
-                leaves_after_years,
+                id_agency,
+                first_name_consultant,
+                last_name_consultant,
+                starts_after_month_consultant,
+                starts_after_year_consultant,
+                leaves_after_month_consultant,
+                leaves_after_year_consultant,
             );
         this.consultants.push(newConsultant);
         return consulId
@@ -37,32 +39,32 @@ export class ConsultantsService {
 
     updateConsultant(
             consulId: string,
-            first_name: string,
-            last_name: string,
-            starts_after_month: number,
-            starts_after_year: number,
-            leaves_after_month: number,
-            leaves_after_year: number,
+            first_name_consultant: string,
+            last_name_consultant: string,
+            starts_after_month_consultant: number,
+            starts_after_year_consultant: number,
+            leaves_after_month_consultant: number,
+            leaves_after_year_consultant: number,
         ) {
         const [consultant, index] = this.findConsultant(consulId);
         const updateConsultant = { ...consultant };
-        if (last_name) {
-            updateConsultant.last_name = last_name;
+        if (last_name_consultant) {
+            updateConsultant.last_name_consultant = last_name_consultant;
         }
-        if (first_name) {
-            updateConsultant.first_name = first_name;
+        if (first_name_consultant) {
+            updateConsultant.first_name_consultant = first_name_consultant;
         }
-        if (starts_after_month) {
-            updateConsultant.starts_after_month = starts_after_month;
+        if (starts_after_month_consultant) {
+            updateConsultant.starts_after_month_consultant = starts_after_month_consultant;
         }
-        if (starts_after_year) {
-            updateConsultant.starts_after_year = starts_after_year;
+        if (starts_after_year_consultant) {
+            updateConsultant.starts_after_year_consultant = starts_after_year_consultant;
         }
-        if (leaves_after_month) {
-            updateConsultant.leaves_after_month = leaves_after_month;
+        if (leaves_after_month_consultant) {
+            updateConsultant.leaves_after_month_consultant = leaves_after_month_consultant;
         }
-        if (leaves_after_year) {
-            updateConsultant.leaves_after_year = leaves_after_year;
+        if (leaves_after_year_consultant) {
+            updateConsultant.leaves_after_year_consultant = leaves_after_year_consultant;
         }
           this.consultants[index] = updateConsultant;
         }
@@ -73,7 +75,7 @@ export class ConsultantsService {
     }
 
     private findConsultant(id: string): [Consultant, number] {
-        const consultantIndex = this.consultants.findIndex(cons => cons.id === parseInt(id));
+        const consultantIndex = this.consultants.findIndex(cons => cons.id_consultant === parseInt(id));
         const consultant = this.consultants[consultantIndex];
         if (!consultant) {
           throw new NotFoundException;

@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Post, Patch, Delete, Param, Put, Req, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Body, Get, Post, Patch, Delete, Param } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 
 @Controller('consultants')
@@ -7,22 +7,24 @@ export class ConsultantsController {
 
     @Post()
     createConsultants(
-        @Body('first_name') first_name: string,
-        @Body('last_name') last_name: string,
-        @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_year') starts_after_year: number,
-        @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_year') leaves_after_year: number
+        @Body('id_agency') id_agency: number,
+        @Body('first_name_consultant') first_name_consultant: string,
+        @Body('last_name_consultant') last_name_consultant: string,
+        @Body('starts_after_month_consultant') starts_after_month_consultant: number,
+        @Body('starts_after_year_consultant') starts_after_year_consultant: number,
+        @Body('leaves_after_month_consultant') leaves_after_month_consultant: number,
+        @Body('leaves_after_year_consultant') leaves_after_year_consultant: number
         ) {
         const generatedId = this.consultantsService.insertConsultant(
-            first_name,
-            last_name,
-            starts_after_month,
-            starts_after_year,
-            leaves_after_month,
-            leaves_after_year
+            id_agency,
+            first_name_consultant,
+            last_name_consultant,
+            starts_after_month_consultant,
+            starts_after_year_consultant,
+            leaves_after_month_consultant,
+            leaves_after_year_consultant
             );
-        return { id: generatedId };
+        return { id_consultant: generatedId };
     }
 
     @Get()
@@ -38,21 +40,21 @@ export class ConsultantsController {
     @Patch(':id') 
     updateConsultant(
         @Param('id') consulId: string,
-        @Body('first_name') first_name: string,
-        @Body('last_name') last_name: string,
-        @Body('starts_after_month') starts_after_month: number,
-        @Body('starts_after_year') starts_after_year: number,
-        @Body('leaves_after_month') leaves_after_month: number,
-        @Body('leaves_after_year') leaves_after_year: number,
+        @Body('first_name_consultant') first_name_consultant: string,
+        @Body('last_name_consultant') last_name_consultant: string,
+        @Body('starts_after_month_consultant') starts_after_month_consultant: number,
+        @Body('starts_after_year_consultant') starts_after_year_consultant: number,
+        @Body('leaves_after_month_consultant') leaves_after_month_consultant: number,
+        @Body('leaves_after_year_consultant') leaves_after_year_consultant: number,
     ) {
         this.consultantsService.updateConsultant(
             consulId,
-            first_name,
-            last_name,
-            starts_after_month,
-            starts_after_year,
-            leaves_after_month,
-            leaves_after_year
+            first_name_consultant,
+            last_name_consultant,
+            starts_after_month_consultant,
+            starts_after_year_consultant,
+            leaves_after_month_consultant,
+            leaves_after_year_consultant
         );
         return `Consultant's profile has been updated`;
     }
