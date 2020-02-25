@@ -1,10 +1,9 @@
 import {Module} from '@nestjs/common';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {Connection} from "typeorm";
 import {Consultant} from "./consultants/consultant.entity";
 import {Agency} from "./agencies/agency.entity";
+import {AgenciesModule} from './agencies/agencies.module';
 
 @Module({
     imports: [
@@ -17,10 +16,9 @@ import {Agency} from "./agencies/agency.entity";
             database: 'previzen',
             entities: [Consultant, Agency],
             synchronize: true,
-        })
-    ],
-    controllers: [AppController],
-    providers: [AppService],
+        }),
+        AgenciesModule
+    ]
 })
 export class AppModule {
     constructor(private readonly connection: Connection) {
