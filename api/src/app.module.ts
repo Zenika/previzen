@@ -4,6 +4,8 @@ import {Connection} from "typeorm";
 import {Consultant} from "./consultants/consultant.entity";
 import {Agency} from "./agencies/agency.entity";
 import {AgenciesModule} from './agencies/agencies.module';
+import {AppService} from "./app.service";
+import {AppController} from "./app.controller";
 
 @Module({
     imports: [
@@ -19,6 +21,8 @@ import {AgenciesModule} from './agencies/agencies.module';
         }),
         AgenciesModule
     ],
+    providers: [AppService],
+    controllers: [AppController]
 })
 export class AppModule {
     constructor(private readonly connection: Connection) {

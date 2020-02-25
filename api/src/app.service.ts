@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World from the PreviZen Nest.js API !';
+  getCheckHealthMessage(): string {
+    return 'PreviZen Nest.js API is running';
   }
 }
