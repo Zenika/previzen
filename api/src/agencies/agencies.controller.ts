@@ -13,7 +13,7 @@ export class AgenciesController {
     }
 
     @Get(':id')
-    findOne(@Param("id") id: string) {
-        return this.agenciesService.findOne(id)
+    findOne(@Param("id") id_agency: string) {
+        return this.agenciesService.findOne(id_agency)
     }
 }
