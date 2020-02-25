@@ -15,10 +15,10 @@ import {AgenciesModule} from './agencies/agencies.module';
             password: 'password',
             database: 'previzen',
             entities: [Consultant, Agency],
-            synchronize: true,
+            synchronize: false,
         }),
         AgenciesModule
-    ]
+    ],
 })
 export class AppModule {
     constructor(private readonly connection: Connection) {
