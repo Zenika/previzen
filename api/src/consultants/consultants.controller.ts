@@ -57,16 +57,13 @@ export class ConsultantsController {
         return `Consultant's profile has been updated`;
     }
 
-    @Put(':id')
-
-
     @Delete(':id')
     removeConsultant(
         @Param('id') consulId: string
     ) {
         this.consultantsService.deleteConsultant(
             consulId
-        );
+        )
         return `Consultant's profile has been deleted`;
     }
 }
