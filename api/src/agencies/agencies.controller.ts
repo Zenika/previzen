@@ -1,19 +1,17 @@
-import {Controller, Get, Param} from '@nestjs/common';
-import {AgenciesService} from "./agencies.service";
+import { Controller, Get, Param } from '@nestjs/common';
+import { AgenciesService } from './agencies.service';
 
 @Controller('agencies')
 export class AgenciesController {
+  constructor(private agenciesService: AgenciesService) {}
 
-    constructor(private agenciesService: AgenciesService) {
-    }
+  @Get()
+  findAll() {
+    return this.agenciesService.findAll();
+  }
 
-    @Get()
-    findAll() {
-        return this.agenciesService.findAll()
-    }
-
-    @Get(':id')
-    findOne(@Param("id") id_agency: string) {
-        return this.agenciesService.findOne(id_agency)
-    }
+  @Get(':id')
+  findOne(@Param('id') id_agency: string) {
+    return this.agenciesService.findOne(id_agency);
+  }
 }
