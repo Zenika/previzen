@@ -34,7 +34,7 @@
 
     <v-content>
       <v-container>
-        <h1>{{ hello }}</h1>
+
       </v-container>
     </v-content>
 
@@ -50,6 +50,8 @@
 <script>
 import axios from "axios";
 export default {
+  components: {
+  },
   name: "LayoutsDemosBaselineFlipped",
 
   props: {
