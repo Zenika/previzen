@@ -49,6 +49,7 @@ CREATE TABLE "customer" (
 
 CREATE TABLE "agency" (
   "id_agency" integer PRIMARY KEY,
+  "name_manager" text,
   "name_agency" text NOT NULL,
   "city_agency" text NOT NULL,
   "country_agency" text NOT NULL
