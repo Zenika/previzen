@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "PreviZen Nest.js API is running"', () => {
+      expect(appController.getCheckHealthMessage()).toBe('PreviZen Nest.js API is running');
     });
   });
 });
