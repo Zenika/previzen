@@ -5,7 +5,7 @@
 
 CREATE TABLE "absence_jaz"
 (
-    "id_absence_jaz"       integer PRIMARY KEY,
+    "id_absence_jaz"       serial PRIMARY KEY,
     "id_consultant"        integer NOT NULL,
     "comment_absence_jaz"  text    NOT NULL,
     "date_absence_jaz"     integer NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "absence_jaz"
 
 CREATE TABLE "absence_off"
 (
-    "id_absence_off"       integer PRIMARY KEY,
+    "id_absence_off"       serial PRIMARY KEY,
     "id_consultant"        integer NOT NULL,
     "comment_absence_off"  text    NOT NULL,
     "date_absence_off"     integer NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "absence_off"
 
 CREATE TABLE "billable_day"
 (
-    "id_billable_day"     integer PRIMARY KEY,
+    "id_billable_day"     serial PRIMARY KEY,
     "id_consultant"       integer NOT NULL,
     "count_billable_days" integer NOT NULL,
     "month_billable_day"  integer NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE "billable_day"
 
 CREATE TABLE "consultant"
 (
-    "id_consultant"                 integer PRIMARY KEY,
+    "id_consultant"                 serial PRIMARY KEY,
     "id_agency"                     integer NOT NULL,
     "first_name_consultant"         text    NOT NULL,
     "last_name_consultant"          text    NOT NULL,
@@ -48,13 +48,13 @@ CREATE TABLE "consultant"
 
 CREATE TABLE "customer"
 (
-    "id_customer"   integer PRIMARY KEY,
+    "id_customer"   serial PRIMARY KEY,
     "name_customer" text NOT NULL
 );
 
 CREATE TABLE "agency"
 (
-    "id_agency"      integer PRIMARY KEY,
+    "id_agency"      serial PRIMARY KEY,
     "name_agency"    text NOT NULL,
     "name_manager"   text,
     "city_agency"    text NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE "agency"
 
 CREATE TABLE "daily_cost"
 (
-    "id_daily_cost"    integer PRIMARY KEY,
+    "id_daily_cost"    serial PRIMARY KEY,
     "id_consultant"    integer NOT NULL,
     "month_daily_cost" integer NOT NULL,
     "year_daily_cost"  integer NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE "daily_cost"
 
 CREATE TABLE "staffing"
 (
-    "id_staffing"       integer PRIMARY KEY,
+    "id_staffing"       serial PRIMARY KEY,
     "id_consultant"     integer NOT NULL,
     "id_customer"       integer NOT NULL,
     "month_staffing"    integer NOT NULL,
