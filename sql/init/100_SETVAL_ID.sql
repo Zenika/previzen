@@ -5,7 +5,7 @@
 -- To get the sequence table, you have to do this query: "SELECT pg_get_serial_sequence('table_name', 'id')"
 
 SELECT setval('agency_id_agency_seq', max(id_agency))
-FROM public.agency
+FROM public.agency;
 
 SELECT setval('consultant_id_consultant_seq', max(id_consultant))
-FROM public.consultant
+FROM public.consultant;
