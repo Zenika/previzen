@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Consultant } from './consultant.entity';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class ConsultantsService {
@@ -10,15 +10,23 @@ export class ConsultantsService {
     private readonly consultantsRepository: Repository<Consultant>,
   ) {}
 
-  findAll(): Promise<Consultant[]> {
-    return this.consultantsRepository.find();
-  }
+  async findAll(): Promise<Consultant[]> {
+    return await this.consultantsRepository.find();
+  };
 
-  findOne(id_consultant: string): Promise<Consultant> {
-    return this.consultantsRepository.findOne(id_consultant);
-  }
+  async findOne(id_consultant: string): Promise<Consultant> {
+    return await this.consultantsRepository.findOne(id_consultant);
+  };
 
-  async remove(id_consultant: string): Promise<void> {
-    await this.consultantsRepository.delete(id_consultant);
-  }
+  async create(consultant: Consultant): Promise<Consultant> {
+    return await this.consultantsRepository.save(consultant);
+  };
+
+  async update(consultant: Consultant): Promise<UpdateResult> {
+    return await this.consultantsRepository.update(consultant.idConsultant, consultant);
+  };
+
+  async remove(id_consultant: string): Promise<DeleteResult> {
+    return await this.consultantsRepository.delete(id_consultant);
+  };
 }
