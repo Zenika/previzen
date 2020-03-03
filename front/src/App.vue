@@ -2,24 +2,8 @@
   <v-app id="inspire">
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Add new consultant</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Add new customer</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item>
+          <addConsultant />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -34,7 +18,7 @@
 
     <v-content>
       <v-container>
-
+        <ConsultantsList />
       </v-container>
     </v-content>
 
@@ -49,8 +33,12 @@
 
 <script>
 import axios from "axios";
+import ConsultantsList from "@/components/ConsultantsList";
+import addConsultant from "@/components/addConsultant";
 export default {
   components: {
+    ConsultantsList,
+    addConsultant
   },
   name: "LayoutsDemosBaselineFlipped",
 
@@ -58,7 +46,7 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null,
+    drawer: false,
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",
@@ -67,10 +55,8 @@ export default {
     hello: null
   }),
   mounted() {
-    axios
-        .get("http://localhost:3000")
-        .then(res => {
-            this.hello = res.data;
+    axios.get("http://localhost:3000").then(res => {
+      this.hello = res.data;
     });
   }
 };
