@@ -1,9 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post, Body, Put } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
+import { Consultant } from './consultant.entity';
 
 @Controller('consultants')
 export class ConsultantsController {
-  constructor(private consultantsService: ConsultantsService) {}
+  constructor(private consultantsService: ConsultantsService) { }
 
   @Get()
   findAll() {
@@ -13,5 +14,23 @@ export class ConsultantsController {
   @Get(':id')
   findOne(@Param('id') id_consultant: string) {
     return this.consultantsService.findOne(id_consultant);
+  }
+
+  @Post()
+  async create(@Body() consultantData: Consultant): Promise<any> {
+    return await this.consultantsService.create(consultantData);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id_consultant,
+    @Body() consultantData: Consultant): Promise<any> {
+    consultantData.idConsultant = Number(id_consultant);
+    return await this.consultantsService.update(consultantData);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id_consultant: string) {
+    return await this.consultantsService.remove(id_consultant);
   }
 }
