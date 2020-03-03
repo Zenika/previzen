@@ -33,7 +33,6 @@ export class Consultant {
     () => Agency,
     agency => agency.consultants,
   )
-  
   @JoinColumn([{ name: 'id_agency', referencedColumnName: 'idAgency' }])
   agency: Agency;
 }
