@@ -25,17 +25,17 @@ export class ConsultantsController {
   }
 
   @Post()
-  async create(@Body() consultantData: Consultant): Promise<any> {
-    return await this.consultantsService.create(consultantData);
+  async create(@Body() newConsultant: Consultant): Promise<any> {
+    return await this.consultantsService.create(newConsultant);
   }
 
   @Put(':id')
   async update(
     @Param('id') id_consultant,
-    @Body() consultantData: Consultant,
+    @Body() consultant: Consultant,
   ): Promise<any> {
-    consultantData.idConsultant = Number(id_consultant);
-    return await this.consultantsService.update(consultantData);
+    consultant.idConsultant = Number(id_consultant);
+    return await this.consultantsService.update(consultant);
   }
 
   @Delete(':id')

@@ -8,10 +8,17 @@ export class ConsultantsService {
   constructor(
     @InjectRepository(Consultant)
     private readonly consultantsRepository: Repository<Consultant>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Consultant[]> {
-    return await this.consultantsRepository.find();
+    return await this.consultantsRepository.find({
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency'
+        }
+      }
+    })
   }
 
   async findOne(id_consultant: string): Promise<Consultant> {
