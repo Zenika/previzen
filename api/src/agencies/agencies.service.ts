@@ -18,6 +18,15 @@ export class AgenciesService {
     return this.agenciesRepository.findOne(id_agency);
   }
 
+  create(agency: Agency): Promise<Agency> {
+    return this.agenciesRepository.save(agency);
+  }
+
+  update(id_agency: string, agency: Agency) {
+    agency.idAgency = parseInt(id_agency);
+    return this.agenciesRepository.save(agency);
+  }
+
   async remove(id_agency: string): Promise<void> {
     await this.agenciesRepository.delete(id_agency);
   }

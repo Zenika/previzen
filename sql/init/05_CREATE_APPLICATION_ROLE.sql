@@ -29,3 +29,8 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE public.customer TO application;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE public.daily_cost TO application;
 
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE public.staffing TO application;
+
+-- Grant below used to give rights to 'application' role to use/manage sequence in PostgreSQL database
+-- @see https://stackoverflow.com/questions/44708548/postgres-complains-id-already-exists-after-insert-of-initial-data
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO application;

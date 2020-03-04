@@ -12,15 +12,23 @@ import { Consultant } from './consultant.entity';
 
 @Controller('consultants')
 export class ConsultantsController {
-  constructor(private consultantsService: ConsultantsService) {}
+  constructor(private consultantsService: ConsultantsService) { }
 
   @Get()
   findAll() {
+    console.log(
+      ConsultantsController.name + ' - Retrieving all consultants...',
+    );
     return this.consultantsService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id_consultant: string) {
+    console.log(
+      ConsultantsController.name +
+      ' - Retrieving one consultant where id = ' +
+      id_consultant,
+    );
     return this.consultantsService.findOne(id_consultant);
   }
 
