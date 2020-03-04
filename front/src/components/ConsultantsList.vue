@@ -5,23 +5,11 @@
     </v-flex>
 
     <v-flex xs6>
-      <v-text-field
-        hide-details
-        single-inline
-        append-icon="mdi-magnify"
-        label="Filter"
-        @input="filterSearch"
-      ></v-text-field>
+      <v-text-field hide-details single-inline append-icon="mdi-magnify" label="Filter"></v-text-field>
     </v-flex>
 
     <v-flex xs12 sm12 md12 lg12>
-      <v-data-table
-        :headers="headers"
-        :items="consultants"
-        :search="filters"
-        :custom-filter="customFilter"
-        class="elevation-1"
-      >
+      <v-data-table :headers="headers" :items="consultants" class="elevation-1">
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="800px">
             <v-card>
@@ -47,6 +35,7 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+                  <v-row></v-row>
                 </v-container>
               </v-card-text>
             </v-card>
@@ -54,7 +43,7 @@
         </template>
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editConsultant(item)">mdi-cogs</v-icon>
-          <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+          <v-icon small @click="deleteConsultant(item)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-flex>
@@ -90,7 +79,7 @@ export default {
         },
         {
           text: "Consultant's Agency",
-          value: "nameAgency"
+          value: "idAgency.nameAgency"
         },
         {
           text: "Actions",
@@ -114,18 +103,14 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-    deleteItem() {
-      alert("Are you sure to delete this consultant ?");
+    deleteConsultant() {
+      // TODO
+  
     },
     findAllAgencies() {
       axios
         .get("http://localhost:3000/agencies")
         .then(response => (this.agencies = response.data));
-    },
-    filterSearch(val) {
-      this.filters = this.$MultiFilters.updateFilters(this.filters, {
-        search: val
-      });
     }
   },
   created() {

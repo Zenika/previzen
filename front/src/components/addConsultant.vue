@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="800px">
+  <v-dialog width="800px" v-model="dialog">
     <template v-slot:activator="{on}">
       <v-btn v-on="on" text depressed>
         Add new consultant
@@ -18,7 +18,7 @@
           </v-col>
         </v-row>
 
-        <v-select label="Agency" required></v-select>
+        <v-select v-model="idAgency" :items="agencies" item-text="nameAgency" item-value="idAgency" label="Agency" required></v-select>
         <v-row>
           <v-col cols="12" xs="6" sm="6" md="6" lg="6">
             <v-menu
@@ -35,9 +35,10 @@
                   label="Contract start date"
                   prepend-icon="mdi-calendar"
                   v-model="date"
+                  readonly
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
+              <v-date-picker v-model="date" @input="menu = false" type="month"></v-date-picker>
             </v-menu>
           </v-col>
           <v-col cols="12" xs="6" sm="6" md="6" lg="6">
@@ -55,10 +56,19 @@
                   label="Contract end date"
                   prepend-icon="mdi-calendar"
                   v-model="date2"
+                  readonly
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
+              <v-date-picker v-model="date2" @input="menu2 = false" type="month"></v-date-picker>
             </v-menu>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" xs="6" sm="6" md="2">
+            <v-btn @click="createConsultant()" color="success">Create</v-btn>
+          </v-col>
+          <v-col cols="12" xs="6" sm="6" md="2">
+            <v-btn @click="dialog = false" color="red">Cancel</v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -72,16 +82,21 @@ export default {
   name: "addConsultant",
   data() {
     return {
-      agencies: [],
-      dialog: false,
-      dates: null,
-      date: new Date().toISOString().substr(0, 10),
-      date2: new Date().toISOString().substr(0, 10),
-      menu: false,
-      menu2: false,
       lastNameConsultant: "",
       firstNameConsultant: "",
-      agencyRules: [v => !!v || "You must select an agency !"]
+      idAgency: null,
+      agencies: [],
+      date: null,
+      date2: null,
+      agencyRules: [v => !!v || "You must select an agency !"],
+      dialog: false,
+      menu: false,
+      menu2: false,
+      editedConsultant: -1,
+      editedIndex: {
+        lastNameConsultant: "",
+        firstNameConsultant: ""
+      }, 
     };
   },
   methods: {
@@ -89,6 +104,16 @@ export default {
       axios
         .get("http://localhost:3000/agencies")
         .then(response => (this.agencies = response.data));
+    },
+    createConsultant() {
+      let newConsultant = {
+ 
+      }
+
+      axios
+        .post('http://localhost:3000/consultants', newConsultant)
+        .then(response => response.data)
+        .catch(error => {throw error});
     }
   },
   created() {
