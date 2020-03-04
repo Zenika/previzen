@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Consultant } from './consultant.entity';
-import { Repository, DeleteResult, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ConsultantsService {
@@ -22,21 +22,26 @@ export class ConsultantsService {
   }
 
   async findOne(id_consultant: string): Promise<Consultant> {
-    return await this.consultantsRepository.findOne(id_consultant);
+    return await this.consultantsRepository.findOne(id_consultant, {
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency',
+        },
+      },
+    });
   }
 
   async create(consultant: Consultant): Promise<Consultant> {
     return await this.consultantsRepository.save(consultant);
   }
 
-  async update(consultant: Consultant): Promise<UpdateResult> {
-    return await this.consultantsRepository.update(
-      consultant.idConsultant,
-      consultant,
-    );
+  async update(id_consultant: string, consultant: Consultant) {
+    consultant.idConsultant = parseInt(id_consultant);
+    return await this.consultantsRepository.save(consultant);
   }
 
-  async remove(id_consultant: string): Promise<DeleteResult> {
+  async remove(id_consultant: string) {
     return await this.consultantsRepository.delete(id_consultant);
   }
 }

@@ -12,7 +12,7 @@ import { Consultant } from './consultant.entity';
 
 @Controller('consultants')
 export class ConsultantsController {
-  constructor(private consultantsService: ConsultantsService) { }
+  constructor(private consultantsService: ConsultantsService) {}
 
   @Get()
   findAll() {
@@ -26,28 +26,40 @@ export class ConsultantsController {
   findOne(@Param('id') id_consultant: string) {
     console.log(
       ConsultantsController.name +
-      ' - Retrieving one consultant where id = ' +
-      id_consultant,
+        ' - Retrieving one consultant where id = ' +
+        id_consultant,
     );
     return this.consultantsService.findOne(id_consultant);
   }
 
   @Post()
-  async create(@Body() newConsultant: Consultant): Promise<any> {
-    return await this.consultantsService.create(newConsultant);
+  async create(@Body() consultant: Consultant) {
+    console.log(
+      ConsultantsController.name +
+        ' - A new Consultant will be created with those parameters:',
+    );
+    console.table(consultant);
+    return await this.consultantsService.create(consultant);
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id_consultant,
-    @Body() consultant: Consultant,
-  ): Promise<any> {
-    consultant.idConsultant = Number(id_consultant);
-    return await this.consultantsService.update(consultant);
+  update(@Param('id') id_consultant: string, @Body() consultant: Consultant) {
+    console.log(
+      ConsultantsController.name +
+        ' - A Consultant will be updated with those parameters, where id = ' +
+        id_consultant,
+    );
+    console.table(consultant);
+    return this.consultantsService.update(id_consultant, consultant);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id_consultant: string) {
-    return await this.consultantsService.remove(id_consultant);
+  remove(@Param('id') id_consultant: string) {
+    console.log(
+      ConsultantsController.name +
+        ' - A Consultant will be removed with those parameters, where id = ' +
+        id_consultant,
+    );
+    return this.consultantsService.remove(id_consultant);
   }
 }
