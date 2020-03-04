@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Consultant } from './consultant.entity';
-import { Repository } from 'typeorm';
+import {Injectable} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Consultant} from './consultant.entity';
+import {Repository} from 'typeorm';
 
 @Injectable()
 export class ConsultantsService {
@@ -11,11 +11,25 @@ export class ConsultantsService {
   ) {}
 
   findAll(): Promise<Consultant[]> {
-    return this.consultantsRepository.find();
+    return this.consultantsRepository.find({
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency'
+        }
+      }
+    });
   }
 
   findOne(id_consultant: string): Promise<Consultant> {
-    return this.consultantsRepository.findOne(id_consultant);
+    return this.consultantsRepository.findOne(id_consultant, {
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency'
+        }
+      }
+    });
   }
 
   create(consultant: Consultant): Promise<Consultant> {
