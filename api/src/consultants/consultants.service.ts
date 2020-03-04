@@ -33,24 +33,7 @@ export class ConsultantsService {
   }
 
   create(consultant: Consultant): Promise<Consultant> {
-    const {
-      firstNameConsultant,
-      lastNameConsultant,
-      startsAfterMonthConsultant,
-      startsAfterYearConsultant,
-      leavesAfterMonthConsultant,
-      leavesAfterYearConsultant,
-    } = consultant;
-    const newConsultant = new Consultant();
-
-    newConsultant.idAgency = consultant.idAgency;
-    newConsultant.firstNameConsultant = firstNameConsultant;
-    newConsultant.lastNameConsultant = lastNameConsultant;
-    newConsultant.startsAfterMonthConsultant = startsAfterMonthConsultant;
-    newConsultant.startsAfterYearConsultant = startsAfterYearConsultant;
-    newConsultant.leavesAfterMonthConsultant = leavesAfterMonthConsultant;
-    newConsultant.leavesAfterYearConsultant = leavesAfterYearConsultant;
-    return this.consultantsRepository.save(newConsultant);
+    return this.consultantsRepository.save(consultant);
   }
 
   async remove(id_consultant: string): Promise<void> {
