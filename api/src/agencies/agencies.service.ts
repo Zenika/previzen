@@ -22,8 +22,8 @@ export class AgenciesService {
     return this.agenciesRepository.save(agency);
   }
 
-  update(id: string, agency: Agency) {
-    agency.idAgency = parseInt(id);
+  update(id_agency: string, agency: Agency) {
+    agency.idAgency = parseInt(id_agency);
     return this.agenciesRepository.save(agency);
   }
 

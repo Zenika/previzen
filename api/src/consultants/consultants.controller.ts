@@ -35,13 +35,13 @@ export class ConsultantsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() consultant: Consultant) {
+  update(@Param('id') id_consultant: string, @Body() consultant: Consultant) {
     console.log(
       ConsultantsController.name +
         ' - A Consultant will be updated with those parameters, where id = ' +
-        id,
+        id_consultant,
     );
     console.table(consultant);
-    return this.consultantsService.update(id, consultant);
+    return this.consultantsService.update(id_consultant, consultant);
   }
 }

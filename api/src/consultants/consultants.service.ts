@@ -36,8 +36,8 @@ export class ConsultantsService {
     return this.consultantsRepository.save(consultant);
   }
 
-  update(id: string, consultant: Consultant) {
-    consultant.idConsultant = parseInt(id);
+  update(id_consultant: string, consultant: Consultant) {
+    consultant.idConsultant = parseInt(id_consultant);
     return this.consultantsRepository.save(consultant);
   }
 

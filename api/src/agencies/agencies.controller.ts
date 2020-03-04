@@ -33,13 +33,13 @@ export class AgenciesController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() agency: Agency) {
+  update(@Param('id') id_agency: string, @Body() agency: Agency) {
     console.log(
       AgenciesController.name +
         ' - An Agency will be updated with those parameters, where id = ' +
-        id,
+        id_agency,
     );
     console.table(agency);
-    return this.agenciesService.update(id, agency);
+    return this.agenciesService.update(id_agency, agency);
   }
 }
