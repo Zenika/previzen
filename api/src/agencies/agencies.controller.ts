@@ -14,7 +14,11 @@ export class AgenciesController {
 
   @Get(':id')
   findOne(@Param('id') id_agency: string) {
-    console.log(AgenciesController.name + ' - Retrieving one agency...');
+    console.log(
+      AgenciesController.name +
+        ' - Retrieving one agency where id = ' +
+        id_agency,
+    );
     return this.agenciesService.findOne(id_agency);
   }
 

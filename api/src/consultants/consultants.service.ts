@@ -1,7 +1,7 @@
-import {Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Consultant} from './consultant.entity';
-import {Repository} from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Consultant } from './consultant.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ConsultantsService {
@@ -15,9 +15,9 @@ export class ConsultantsService {
       join: {
         alias: 'agency',
         leftJoinAndSelect: {
-          id_agency: 'agency.idAgency'
-        }
-      }
+          id_agency: 'agency.idAgency',
+        },
+      },
     });
   }
 
@@ -26,9 +26,9 @@ export class ConsultantsService {
       join: {
         alias: 'agency',
         leftJoinAndSelect: {
-          id_agency: 'agency.idAgency'
-        }
-      }
+          id_agency: 'agency.idAgency',
+        },
+      },
     });
   }
 

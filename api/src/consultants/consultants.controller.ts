@@ -16,7 +16,11 @@ export class ConsultantsController {
 
   @Get(':id')
   findOne(@Param('id') id_consultant: string) {
-    console.log(ConsultantsController.name + ' - Retrieving one consultant...');
+    console.log(
+      ConsultantsController.name +
+        ' - Retrieving one consultant where id = ' +
+        id_consultant,
+    );
     return this.consultantsService.findOne(id_consultant);
   }
 

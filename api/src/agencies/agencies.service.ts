@@ -11,7 +11,6 @@ export class AgenciesService {
   ) {}
 
   findAll(): Promise<Agency[]> {
-    this.agenciesRepository.find().then(value => console.table(value));
     return this.agenciesRepository.find();
   }
 
