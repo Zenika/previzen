@@ -20,17 +20,19 @@ export class ConsultantsService {
     }
 
     create(consultant: Consultant): Promise<Consultant> {
+        const {
+            firstNameConsultant, lastNameConsultant, startsAfterMonthConsultant,
+            startsAfterYearConsultant, leavesAfterMonthConsultant, leavesAfterYearConsultant
+        } = consultant;
         const newConsultant = new Consultant();
-        newConsultant.idAgency.idAgency = consultant.idAgency.idAgency;
-        newConsultant.firstNameConsultant = consultant.firstNameConsultant;
-        newConsultant.lastNameConsultant = consultant.lastNameConsultant;
-        newConsultant.startsAfterMonthConsultant = consultant.startsAfterMonthConsultant;
-        newConsultant.startsAfterYearConsultant = consultant.startsAfterYearConsultant;
-        newConsultant.leavesAfterMonthConsultant = consultant.leavesAfterMonthConsultant;
-        newConsultant.leavesAfterYearConsultant = consultant.leavesAfterYearConsultant;
 
-        // console.log() intended to track activity, delete it when it's done
-        console.table(newConsultant);
+        newConsultant.idAgency = consultant.idAgency;
+        newConsultant.firstNameConsultant = firstNameConsultant;
+        newConsultant.lastNameConsultant = lastNameConsultant;
+        newConsultant.startsAfterMonthConsultant = startsAfterMonthConsultant;
+        newConsultant.startsAfterYearConsultant = startsAfterYearConsultant;
+        newConsultant.leavesAfterMonthConsultant = leavesAfterMonthConsultant;
+        newConsultant.leavesAfterYearConsultant = leavesAfterYearConsultant;
         return this.consultantsRepository.save(newConsultant);
     }
 

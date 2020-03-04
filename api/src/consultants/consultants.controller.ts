@@ -19,11 +19,8 @@ export class ConsultantsController {
         return this.consultantsService.findOne(id_consultant);
     }
 
-    //TODO WIP searching to get id_agency and insert it into the new Consultant
-
     @Post()
-    create(@Param('id_agency') id_agency: number, @Body() consultant: Consultant) {
-        consultant.idAgency.idAgency = id_agency;
+    create(@Body() consultant: Consultant) {
         console.log(ConsultantsController.name + ' - A new Consultant will be created with those parameters:');
         console.table(consultant);
         return this.consultantsService.create(consultant)
