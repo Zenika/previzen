@@ -13,14 +13,13 @@ async function bootstrap() {
 
 function printHostSystemInformation() {
   const os = require('os');
-
   let hostInformation = [os.hostname(), os.platform(), os.arch()];
 
-  console.log('\nNest.js API is running on: ');
+  console.log('\nNest.js API is running on:');
   console.log(hostInformation);
   console.log('\nTotal memory system in gigabyte:');
   console.log(os.totalmem() / 1000000000);
-  console.log('\nCPU information: ');
+  console.log('\nCPU information:');
   console.log(os.cpus()[1]);
 }
 

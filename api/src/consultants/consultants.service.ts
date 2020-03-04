@@ -11,11 +11,29 @@ export class ConsultantsService {
   ) {}
 
   findAll(): Promise<Consultant[]> {
-    return this.consultantsRepository.find();
+    return this.consultantsRepository.find({
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency',
+        },
+      },
+    });
   }
 
   findOne(id_consultant: string): Promise<Consultant> {
-    return this.consultantsRepository.findOne(id_consultant);
+    return this.consultantsRepository.findOne(id_consultant, {
+      join: {
+        alias: 'agency',
+        leftJoinAndSelect: {
+          id_agency: 'agency.idAgency',
+        },
+      },
+    });
+  }
+
+  create(consultant: Consultant): Promise<Consultant> {
+    return this.consultantsRepository.save(consultant);
   }
 
   async remove(id_consultant: string): Promise<void> {

@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AgenciesService } from './agencies.service';
+import { Agency } from './agency.entity';
 
 @Controller('agencies')
 export class AgenciesController {
@@ -7,11 +8,27 @@ export class AgenciesController {
 
   @Get()
   findAll() {
+    console.log(AgenciesController.name + ' - Retrieving all agencies...');
     return this.agenciesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id_agency: string) {
+    console.log(
+      AgenciesController.name +
+        ' - Retrieving one agency where id = ' +
+        id_agency,
+    );
     return this.agenciesService.findOne(id_agency);
+  }
+
+  @Post()
+  create(@Body() agency: Agency) {
+    console.log(
+      AgenciesController.name +
+        ' - A new Agency will be created with those parameters:',
+    );
+    console.table(agency);
+    return this.agenciesService.create(agency);
   }
 }

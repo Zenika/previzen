@@ -5,8 +5,12 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  /*
+  Check function to verifying that the Nest.js API is running.
+  @return message of the API.
+   */
   @Get()
-  getHello(): string {
-    return this.appService.getCheckHealthMessage();
+  getRunningCheckMessage(): string {
+    return this.appService.getRunningCheckMessage();
   }
 }

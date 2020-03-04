@@ -1,11 +1,18 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Agency } from '../agencies/agency.entity';
 
 @Index('consultant_pkey', ['idConsultant'], { unique: true })
 @Entity('consultant', { schema: 'public' })
 export class Consultant {
-  @Column('integer', { primary: true, name: 'id_consultant' })
+  @PrimaryGeneratedColumn({ type: 'integer', name: 'id_consultant' })
   idConsultant: number;
 
   @Column('text', { name: 'first_name_consultant' })
