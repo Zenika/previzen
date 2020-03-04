@@ -20,13 +20,7 @@ export class AgenciesService {
   }
 
   create(agency: Agency): Promise<Agency> {
-    const newAgency = new Agency();
-    newAgency.nameAgency = agency.nameAgency;
-    newAgency.nameManager = agency.nameManager;
-    newAgency.cityAgency = agency.cityAgency;
-    newAgency.countryAgency = agency.countryAgency;
-
-    return this.agenciesRepository.save(newAgency);
+    return this.agenciesRepository.save(agency);
   }
 
   async remove(id_agency: string): Promise<void> {
