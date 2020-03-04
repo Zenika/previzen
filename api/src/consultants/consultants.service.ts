@@ -36,6 +36,11 @@ export class ConsultantsService {
     return this.consultantsRepository.save(consultant);
   }
 
+  update(id_consultant: string, consultant: Consultant) {
+    consultant.idConsultant = parseInt(id_consultant);
+    return this.consultantsRepository.save(consultant);
+  }
+
   async remove(id_consultant: string): Promise<void> {
     await this.consultantsRepository.delete(id_consultant);
   }
