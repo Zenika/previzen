@@ -22,6 +22,11 @@ export class AgenciesService {
     return this.agenciesRepository.save(agency);
   }
 
+  update(id: string, agency: Agency) {
+    agency.idAgency = parseInt(id);
+    return this.agenciesRepository.save(agency);
+  }
+
   async remove(id_agency: string): Promise<void> {
     await this.agenciesRepository.delete(id_agency);
   }

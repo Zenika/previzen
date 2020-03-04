@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 import { Consultant } from './consultant.entity';
 
@@ -32,5 +32,16 @@ export class ConsultantsController {
     );
     console.table(consultant);
     return this.consultantsService.create(consultant);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() consultant: Consultant) {
+    console.log(
+      ConsultantsController.name +
+        ' - A Consultant will be updated with those parameters, where id = ' +
+        id,
+    );
+    console.table(consultant);
+    return this.consultantsService.update(id, consultant);
   }
 }

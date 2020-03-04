@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { AgenciesService } from './agencies.service';
 import { Agency } from './agency.entity';
 
@@ -30,5 +30,16 @@ export class AgenciesController {
     );
     console.table(agency);
     return this.agenciesService.create(agency);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() agency: Agency) {
+    console.log(
+      AgenciesController.name +
+        ' - An Agency will be updated with those parameters, where id = ' +
+        id,
+    );
+    console.table(agency);
+    return this.agenciesService.update(id, agency);
   }
 }
