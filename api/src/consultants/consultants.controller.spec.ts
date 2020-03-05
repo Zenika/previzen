@@ -33,26 +33,50 @@ describe('Consultants Controller', () => {
     jest.resetAllMocks();
   });
 
-  it('should return an entity of Consultant', async () => {
-    const consultantTest = new Consultant();
-    const result = Promise.resolve(consultantTest);
-    jest.spyOn(consultantsService, 'findOne').mockImplementation(() => result);
-  });
-
-  it('should return an entity of Consultant', async () => {
-    const expectedResult = new Consultant();
-    const mockNumberToSatisfyParameters = '0';
-
-    jest.spyOn(consultantsService, 'findOne').mockResolvedValue(expectedResult);
-
-    expect(
-      await consultantsController.findOne(mockNumberToSatisfyParameters),
-    ).toBe(expectedResult);
-  });
-
   it('should return an array of Consultant', async () => {
-    const consultantTest = new Consultant();
-    const result = Promise.resolve([consultantTest]);
-    jest.spyOn(consultantsService, 'findAll').mockImplementation(() => result);
+    const mockConsultant = [new Consultant()];
+
+    jest
+      .spyOn(consultantsController, 'findAll')
+      .mockResolvedValue(mockConsultant);
+
+    expect(await consultantsController.findAll()).toBe(mockConsultant);
+  });
+
+  it('should return an array of Promise of Consultant', async () => {
+    const mockConsultant = [new Consultant()];
+    const expectationResult = Promise.resolve([new Consultant()]);
+
+    jest
+      .spyOn(consultantsController, 'findAll')
+      .mockImplementation(() => expectationResult);
+
+    expect(await consultantsController.findAll()).toEqual(mockConsultant);
+  });
+
+  it('should return an entity of Consultant', async () => {
+    const expectationResult = new Consultant();
+    const mockIdConsultant = '1';
+
+    jest
+      .spyOn(consultantsController, 'findOne')
+      .mockResolvedValue(expectationResult);
+
+    expect(await consultantsController.findOne(mockIdConsultant)).toBe(
+      expectationResult,
+    );
+  });
+
+  it('should return a Promise of Consultant entity creation', async () => {
+    const newConsultant = new Consultant();
+    const expectationResult = Promise.resolve(new Consultant());
+
+    jest
+      .spyOn(consultantsController, 'create')
+      .mockImplementation(() => expectationResult);
+
+    expect(consultantsController.create(newConsultant)).toEqual(
+      expectationResult,
+    );
   });
 });
