@@ -10,7 +10,7 @@
 
     <v-app-bar app color="brown" dark>
       <img
-        class="image-rotate"
+        class="hvr-hang"
         alt="zenika_logo"
         id="zenika_logo"
         src="./assets/png/zenika_logo_white.png"
@@ -33,13 +33,10 @@
     <v-content>
       <v-container>
 
-        <h1>{{ hello }}</h1>
-
         <!-- Center content should be here -->
+        <ConsultantsList/>
+
      </v-container>
-
-        <ConsultantsList />
-
     </v-content>
 
     <v-footer app color="brown">
@@ -57,7 +54,6 @@ import axios from "axios";
 import typewriter from "./js/typewriter";
 
 console.log('This application is using a Typewriter' + typewriter);
-
 
 import ConsultantsList from "@/components/ConsultantsList";
 import addConsultant from "@/components/addConsultant";
@@ -103,16 +99,72 @@ export default {
 }
 
 /*
-TODO Replace rotate effect by grow effect, or bounce ?
+TODO Review Zenika icon effect ...
 */
 
-.image-rotate {
-  overflow: hidden;
-  transition-duration: 0.8s;
-  transition-property: transform;
+/* Hang */
+@-webkit-keyframes hvr-hang {
+  0% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+  50% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
 }
-.image-rotate:hover {
-  transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
+@keyframes hvr-hang {
+  0% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+  50% {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+  100% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
 }
+@-webkit-keyframes hvr-hang-sink {
+  100% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+}
+@keyframes hvr-hang-sink {
+  100% {
+    -webkit-transform: translateY(8px);
+    transform: translateY(8px);
+  }
+}
+.hvr-hang {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.hvr-hang:hover, .hvr-hang:focus, .hvr-hang:active {
+  -webkit-animation-name: hvr-hang-sink, hvr-hang;
+  animation-name: hvr-hang-sink, hvr-hang;
+  -webkit-animation-duration: .3s, 1.5s;
+  animation-duration: .3s, 1.5s;
+  -webkit-animation-delay: 0s, .3s;
+  animation-delay: 0s, .3s;
+  -webkit-animation-timing-function: ease-out, ease-in-out;
+  animation-timing-function: ease-out, ease-in-out;
+  -webkit-animation-iteration-count: 1, infinite;
+  animation-iteration-count: 1, infinite;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-direction: normal, alternate;
+  animation-direction: normal, alternate;
+}
+
 </style>
