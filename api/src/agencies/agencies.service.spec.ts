@@ -63,6 +63,28 @@ describe('Agencies Service', () => {
     );
   });
 
+  it('should return an instance of Agency', async () => {
+    const expectationResult = new Agency();
+    const mockIdConsultant = '1';
+
+    jest.spyOn(agenciesService, 'findOne').mockResolvedValue(expectationResult);
+
+    let resultOfPromise = await agenciesService.findOne(mockIdConsultant);
+
+    expect(resultOfPromise).toBeInstanceOf(Agency);
+  });
+
+  it('should return an idAgency defined', async () => {
+    const expectationResult = new Agency();
+    const mockIdConsultant = '1';
+
+    jest.spyOn(agenciesService, 'findOne').mockResolvedValue(expectationResult);
+
+    let resultOfPromise = await agenciesService.findOne(mockIdConsultant);
+
+    expect(typeof resultOfPromise.idAgency).toBeDefined();
+  });
+
   it('should return a Promise of Agency entity creation', async () => {
     const newConsultant = new Agency();
     const expectationResult = Promise.resolve(new Agency());
