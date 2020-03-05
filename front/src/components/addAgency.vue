@@ -1,7 +1,9 @@
 <template>
   <v-dialog>
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on" text depressed>Add new agency</v-btn>
+      <v-btn v-on="on" text depressed>Add new agency
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
     </template>
     <v-card>
       <v-card-title>Add a new agency</v-card-title>
@@ -33,7 +35,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "addAgency",
   data() {
@@ -52,13 +54,15 @@ export default {
         nameManager: this.nameManager,
         cityAgency: this.cityAgency,
         countryAgency: this.countryAgency
-      }
+      };
       console.table(newAgency);
 
       axios
-        .post('http://localhost:3000/agencies', newAgency)
-        .then(response => (response.data))
-        .catch(error => {throw error})
+        .post("http://localhost:3000/agencies", newAgency)
+        .then(response => response.data)
+        .catch(error => {
+          throw error;
+        });
     }
   }
 };
