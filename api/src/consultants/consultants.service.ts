@@ -8,7 +8,7 @@ export class ConsultantsService {
   constructor(
     @InjectRepository(Consultant)
     private readonly consultantsRepository: Repository<Consultant>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Consultant[]> {
     return await this.consultantsRepository.find({
