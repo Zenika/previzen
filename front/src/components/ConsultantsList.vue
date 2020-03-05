@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <!-- <v-flex xs6>
+    <!-- <v-flex xs6> TODO
       <v-select
         v-model="filter"
         :items="agencies"
@@ -8,7 +8,7 @@
         item-value="idAgency"
         label="Filter by agency"
       ></v-select>
-    </v-flex> -->
+    </v-flex>-->
 
     <v-flex xs6>
       <v-text-field
@@ -71,7 +71,8 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text>Edit</v-btn> <!-- TODO save the updated data -->
+                <v-btn color="blue darken-1" text @click="save(editedItem.idConsultant)">Edit</v-btn>
+                <!-- TODO save the updated data -->
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -95,12 +96,14 @@ export default {
       idAgency: "",
       idConsultant: "",
       dialog: false,
+      enabled: null,
       agencies: [],
       consultants: [],
       editedIndex: -1,
       editedItem: {
         lastNameConsultant: "",
         firstNameConsultant: "",
+        idAgency: 0,
         startsAfterMonthConsultant: 0,
         startsAfterYearConsultant: 0,
         leavesAfterMonthConsultant: 0,
@@ -128,7 +131,8 @@ export default {
           value: "action",
           sortable: false
         }
-      ]
+      ],
+      slots: ["Consultants", "Agencies"]
     };
   },
   computed: {},
@@ -150,6 +154,17 @@ export default {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+    },
+    save(id) {
+      if (this.editedIndex > -1) {
+        Object.assign(this.consultants[this.editedIndex], this.editedItem);
+      } else {
+        const updatedConsultant = this.consultants.push(this.editedItem);
+        axios
+          .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
+          .then(response => response.data);
+      }
+      this.dialog = false;
     },
     deleteConsultant(id) {
       const index = this.consultants.indexOf(id);
