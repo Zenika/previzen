@@ -5,6 +5,9 @@
         <v-list-item>
           <addConsultant />
         </v-list-item>
+        <v-list-item>
+          <addAgency />
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -35,10 +38,12 @@
 import axios from "axios";
 import ConsultantsList from "@/components/ConsultantsList";
 import addConsultant from "@/components/addConsultant";
+import addAgency from '@/components/addAgency';
 export default {
   components: {
     ConsultantsList,
-    addConsultant
+    addConsultant,
+    addAgency
   },
   name: "LayoutsDemosBaselineFlipped",
 

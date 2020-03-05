@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
 import { AgenciesService } from './agencies.service';
 import { Agency } from './agency.entity';
 
@@ -41,5 +41,15 @@ export class AgenciesController {
     );
     console.table(agency);
     return this.agenciesService.update(id_agency, agency);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id_agency: string) {
+    console.log(
+      AgenciesController.name +
+        ' - An Agency will be removed with those parameters, where id = ' +
+        id_agency,
+    );
+    return this.agenciesService.remove(id_agency);
   }
 }

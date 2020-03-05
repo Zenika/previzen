@@ -7,7 +7,6 @@
       </v-btn>
     </template>
     <v-card>
-      <v-alert v-model="success" type="success">Consultant successfully added !</v-alert>
       <v-card-title>Add a new consultant</v-card-title>
       <v-form class="mx-5" rel="form">
         <v-row>
@@ -124,7 +123,6 @@ export default {
       dialog: false,
       menu: false,
       menu2: false,
-      success: false,
       editedConsultant: -1,
       editedIndex: {
         lastNameConsultant: "",

@@ -1,8 +1,14 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs6>
-      <v-select label="Filter by agency"></v-select>
-    </v-flex>
+    <!-- <v-flex xs6>
+      <v-select
+        v-model="filter"
+        :items="agencies"
+        item-text="nameAgency"
+        item-value="idAgency"
+        label="Filter by agency"
+      ></v-select>
+    </v-flex> -->
 
     <v-flex xs6>
       <v-text-field
@@ -63,6 +69,9 @@ export default {
   data() {
     return {
       search: "",
+      // filter: {
+      //   agencies: []
+      // },
       dialog: false,
       agencies: [],
       consultants: [],
@@ -95,6 +104,8 @@ export default {
         }
       ]
     };
+  },
+  computed: {
   },
   methods: {
     getAllConsultant() {
