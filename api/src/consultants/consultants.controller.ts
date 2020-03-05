@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 import { Consultant } from './consultant.entity';
 
@@ -43,5 +51,15 @@ export class ConsultantsController {
     );
     console.table(consultant);
     return this.consultantsService.update(id_consultant, consultant);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id_consultant: string) {
+    console.log(
+      ConsultantsController.name +
+        ' - A Consultant will be removed with those parameters, where id = ' +
+        id_consultant,
+    );
+    return this.consultantsService.remove(id_consultant);
   }
 }
