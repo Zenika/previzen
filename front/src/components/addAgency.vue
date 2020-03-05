@@ -22,14 +22,11 @@
             <v-text-field label="Agency country" v-model="countryAgency" :rules="rules" required></v-text-field>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" xs="2" sm="2" md="2">
-            <v-btn @click="createAgency()" color="success">Create</v-btn>
-          </v-col>
-          <v-col cols="12" xs="2" sm="2" md="2">
-            <v-btn @click="dialog = false" color="red">Cancel</v-btn>
-          </v-col>
-        </v-row>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="createAgency()">Create</v-btn>
+        </v-card-actions>
       </v-form>
     </v-card>
   </v-dialog>
