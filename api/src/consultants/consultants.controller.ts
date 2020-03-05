@@ -1,10 +1,18 @@
-import { Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 import { Consultant } from './consultant.entity';
 
 @Controller('consultants')
 export class ConsultantsController {
-  constructor(private consultantsService: ConsultantsService) { }
+  constructor(private consultantsService: ConsultantsService) {}
 
   @Get()
   findAll() {
@@ -18,8 +26,8 @@ export class ConsultantsController {
   findOne(@Param('id') id_consultant: string) {
     console.log(
       ConsultantsController.name +
-      ' - Retrieving one consultant where id = ' +
-      id_consultant,
+        ' - Retrieving one consultant where id = ' +
+        id_consultant,
     );
     return this.consultantsService.findOne(id_consultant);
   }
@@ -28,7 +36,7 @@ export class ConsultantsController {
   create(@Body() consultant: Consultant) {
     console.log(
       ConsultantsController.name +
-      ' - A new Consultant will be created with those parameters:',
+        ' - A new Consultant will be created with those parameters:',
     );
     console.table(consultant);
     return this.consultantsService.create(consultant);
@@ -38,8 +46,8 @@ export class ConsultantsController {
   update(@Param('id') id_consultant: string, @Body() consultant: Consultant) {
     console.log(
       ConsultantsController.name +
-      ' - A Consultant will be updated with those parameters, where id = ' +
-      id_consultant,
+        ' - A Consultant will be updated with those parameters, where id = ' +
+        id_consultant,
     );
     console.table(consultant);
     return this.consultantsService.update(id_consultant, consultant);
@@ -49,8 +57,8 @@ export class ConsultantsController {
   remove(@Param('id') id_consultant: string) {
     console.log(
       ConsultantsController.name +
-      ' - A Consultant will be removed with those parameters, where id = ' +
-      id_consultant,
+        ' - A Consultant will be removed with those parameters, where id = ' +
+        id_consultant,
     );
     return this.consultantsService.remove(id_consultant);
   }
