@@ -8,10 +8,10 @@ export class ConsultantsService {
   constructor(
     @InjectRepository(Consultant)
     private readonly consultantsRepository: Repository<Consultant>,
-  ) { }
+  ) {}
 
-  async findAll(): Promise<Consultant[]> {
-    return await this.consultantsRepository.find({
+  findAll(): Promise<Consultant[]> {
+    return this.consultantsRepository.find({
       join: {
         alias: 'agency',
         leftJoinAndSelect: {
@@ -21,8 +21,8 @@ export class ConsultantsService {
     });
   }
 
-  async findOne(id_consultant: string): Promise<Consultant> {
-    return await this.consultantsRepository.findOne(id_consultant, {
+  findOne(id_consultant: string): Promise<Consultant> {
+    return this.consultantsRepository.findOne(id_consultant, {
       join: {
         alias: 'agency',
         leftJoinAndSelect: {
@@ -32,16 +32,16 @@ export class ConsultantsService {
     });
   }
 
-  async create(consultant: Consultant): Promise<Consultant> {
-    return await this.consultantsRepository.save(consultant);
+  create(consultant: Consultant): Promise<Consultant> {
+    return this.consultantsRepository.save(consultant);
   }
 
-  async update(id_consultant: string, consultant: Consultant) {
+  update(id_consultant: string, consultant: Consultant) {
     consultant.idConsultant = parseInt(id_consultant);
-    return await this.consultantsRepository.save(consultant);
+    return this.consultantsRepository.save(consultant);
   }
 
-  async remove(id_consultant: string) {
-    return await this.consultantsRepository.delete(id_consultant);
+  async remove(id_consultant: string): Promise<void> {
+    await this.consultantsRepository.delete(id_consultant);
   }
 }
