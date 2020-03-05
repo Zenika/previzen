@@ -5,11 +5,17 @@
     </v-flex>
 
     <v-flex xs6>
-      <v-text-field hide-details single-inline append-icon="mdi-magnify" label="Filter"></v-text-field>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-flex>
 
     <v-flex xs12 sm12 md12 lg12>
-      <v-data-table :headers="headers" :items="consultants" class="elevation-1">
+      <v-data-table :headers="headers" :items="consultants" :search="search" class="elevation-1">
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="800px">
             <v-card>
@@ -56,6 +62,7 @@ export default {
   components: {},
   data() {
     return {
+      search: "",
       dialog: false,
       agencies: [],
       consultants: [],
@@ -105,7 +112,6 @@ export default {
     },
     deleteConsultant() {
       // TODO
-  
     },
     findAllAgencies() {
       axios
