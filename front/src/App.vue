@@ -2,24 +2,8 @@
   <v-app id="inspire">
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item>
+          <addConsultant />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -48,10 +32,14 @@
 
     <v-content>
       <v-container>
+
         <h1>{{ hello }}</h1>
 
         <!-- Center content should be here -->
      </v-container>
+
+        <ConsultantsList />
+
     </v-content>
 
     <v-footer app color="brown">
@@ -65,18 +53,26 @@
 
 <script>
 import axios from "axios";
+
 import typewriter from "./js/typewriter";
 
 console.log('This application is using a Typewriter' + typewriter);
 
+
+import ConsultantsList from "@/components/ConsultantsList";
+import addConsultant from "@/components/addConsultant";
 export default {
+  components: {
+    ConsultantsList,
+    addConsultant
+  },
   name: "LayoutsDemosBaselineFlipped",
 
   props: {
     source: String
   },
   data: () => ({
-    drawer: null,
+    drawer: false,
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",

@@ -1,0 +1,33 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Agency } from './agency.entity';
+import { Repository } from 'typeorm';
+
+@Injectable()
+export class AgenciesService {
+  constructor(
+    @InjectRepository(Agency)
+    private readonly agenciesRepository: Repository<Agency>,
+  ) {}
+
+  findAll(): Promise<Agency[]> {
+    return this.agenciesRepository.find();
+  }
+
+  findOne(id_agency: string): Promise<Agency> {
+    return this.agenciesRepository.findOne(id_agency);
+  }
+
+  create(agency: Agency): Promise<Agency> {
+    return this.agenciesRepository.save(agency);
+  }
+
+  update(id_agency: string, agency: Agency) {
+    agency.idAgency = parseInt(id_agency);
+    return this.agenciesRepository.save(agency);
+  }
+
+  async remove(id_agency: string): Promise<void> {
+    await this.agenciesRepository.delete(id_agency);
+  }
+}
