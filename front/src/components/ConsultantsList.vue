@@ -131,8 +131,7 @@ export default {
           value: "action",
           sortable: false
         }
-      ],
-      slots: ["Consultants", "Agencies"]
+      ]
     };
   },
   computed: {},
@@ -154,17 +153,6 @@ export default {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
-    },
-    save(id) {
-      if (this.editedIndex > -1) {
-        Object.assign(this.consultants[this.editedIndex], this.editedItem);
-      } else {
-        const updatedConsultant = this.consultants.push(this.editedItem);
-        axios
-          .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
-          .then(response => response.data);
-      }
-      this.dialog = false;
     },
     deleteConsultant(id) {
       const index = this.consultants.indexOf(id);
