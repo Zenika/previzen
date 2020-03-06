@@ -71,7 +71,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="updateConsultant(editedItem.idConsultant)">Edit</v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="updateConsultant(editedItem.idConsultant)"
+                >Edit</v-btn>
                 <!-- TODO save the updated data -->
               </v-card-actions>
             </v-card>
@@ -164,12 +168,21 @@ export default {
         leavesAfterMonthConsultant: this.editedItem.leavesAfterMonthConsultant,
         leavesAfterYearConsultant: this.editedItem.leavesAfterYearConsultant
       };
-      axios
-        .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
-        .then(response => response.data)
-        .catch(error => {
-          console.log(error);
-        });
+      if (this.editedIndex > -1) {
+        Object.assign(this.consultants[this.editedIndex], this.editedItem);
+        axios
+          .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
+          .then(response => {
+            response.data;
+            this.dialog = false;
+            this.$emit("updatedConsultant");
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.consultants.push(this.editedItem);
+      }
     },
     deleteConsultant(id) {
       const index = this.consultants.indexOf(id);

@@ -1,14 +1,16 @@
 <template>
   <v-app id="inspire">
     <v-snackbar v-model="success" :timeout="4000" top color="success">
-      <span>Awesome! You added a new consultant.</span>
+      <span>{{ text }}</span>
       <v-btn color="white" text @click="success = false">Close</v-btn>
     </v-snackbar>
 
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
         <v-list-item>
-          <addConsultant @consultantAdded="success = true" />
+          <addConsultant
+            @consultantAdded="success = true; text = text[1]"
+            @updatedConsultant="success = true; text = text[0]" />
         </v-list-item>
         <v-list-item>
           <addAgency />
@@ -58,6 +60,10 @@ export default {
   data: () => ({
     drawer: false,
     success: false,
+    text: [
+      'Awesome! You successfully updated this consultant.',
+      'Awesome! You added a new consultant.'
+    ],
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",
