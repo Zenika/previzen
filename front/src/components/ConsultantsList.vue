@@ -71,7 +71,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save(editedItem.idConsultant)">Edit</v-btn>
+                <v-btn color="blue darken-1" text @click="updateConsultant(editedItem.idConsultant)">Edit</v-btn>
                 <!-- TODO save the updated data -->
               </v-card-actions>
             </v-card>
@@ -153,6 +153,23 @@ export default {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+    },
+    updateConsultant(id) {
+      const updatedConsultant = {
+        lastNameConsultant: this.editedItem.lastNameConsultant.toUpperCase(),
+        firstNameConsultant: this.editedItem.firstNameConsultant,
+        idAgency: this.editedItem.idAgency,
+        startsAfterMonthConsultant: this.editedItem.startsAfterMonthConsultant,
+        startsAfterYearConsultant: this.editedItem.startsAfterYearConsultant,
+        leavesAfterMonthConsultant: this.editedItem.leavesAfterMonthConsultant,
+        leavesAfterYearConsultant: this.editedItem.leavesAfterYearConsultant
+      };
+      axios
+        .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
+        .then(response => response.data)
+        .catch(error => {
+          console.log(error);
+        });
     },
     deleteConsultant(id) {
       const index = this.consultants.indexOf(id);
