@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-snackbar v-model="success" :timeout="4000" top color="success">
+    <v-snackbar v-model="success" :value="text" :timeout="4000" top color="success">
       <span>{{ text }}</span>
       <v-btn color="white" text @click="success = false">Close</v-btn>
     </v-snackbar>
@@ -9,8 +9,7 @@
       <v-list dense>
         <v-list-item>
           <addConsultant
-            @consultantAdded="success = true; text = text[1]"
-            @updatedConsultant="success = true; text = text[0]" />
+            @consultantAdded="success = true; text = text[1]"/>
         </v-list-item>
         <v-list-item>
           <addAgency />
@@ -28,7 +27,7 @@
 
     <v-content>
       <v-container>
-        <ConsultantsList />
+        <ConsultantsList @updatedConsultant="success = true; text = text[0]"/>
       </v-container>
     </v-content>
 

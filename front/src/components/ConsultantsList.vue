@@ -76,7 +76,6 @@
                   text
                   @click="updateConsultant(editedItem.idConsultant)"
                 >Edit</v-btn>
-                <!-- TODO save the updated data -->
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -93,6 +92,7 @@
 <script>
 import axios from "axios";
 export default {
+  name: 'ConsultantsList',
   components: {},
   data() {
     return {
@@ -173,9 +173,9 @@ export default {
         axios
           .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
           .then(response => {
-            response.data;
-            this.dialog = false;
-            this.$emit("updatedConsultant");
+            response.data
+            this.dialog = false
+            this.$emit("updatedConsultant")
           })
           .catch(error => {
             console.log(error);

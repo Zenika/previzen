@@ -1,5 +1,5 @@
 <template>
-  <v-dialog>
+  <v-dialog v-model="dialog">
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" text depressed>Add new agency
         <v-icon>mdi-home</v-icon>
@@ -44,7 +44,8 @@ export default {
       nameManager: "",
       cityAgency: "",
       countryAgency: "",
-      rules: [v => !!v || "Field required"]
+      rules: [v => !!v || "Field required"],
+      dialog: false
     };
   },
   methods: {
@@ -59,7 +60,10 @@ export default {
 
       axios
         .post("http://localhost:3000/agencies", newAgency)
-        .then(response => response.data)
+        .then(response => {
+          response.data
+          this.dialog = false;
+        })
         .catch(error => {
           throw error;
         });
