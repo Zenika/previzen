@@ -1,11 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
   Put,
-  Delete,
 } from '@nestjs/common';
 import { ConsultantsService } from './consultants.service';
 import { Consultant } from './consultant.entity';

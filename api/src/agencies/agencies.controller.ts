@@ -1,11 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
   Put,
-  Delete,
 } from '@nestjs/common';
 import { AgenciesService } from './agencies.service';
 import { Agency } from './agency.entity';
