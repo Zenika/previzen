@@ -1,24 +1,24 @@
 <template>
   <v-layout row wrap>
-    <!-- <v-flex xs6> TODO
+    <v-flex xs6>
       <v-select
-        v-model="filter"
+        v-model="search"
         :items="agencies"
         item-text="nameAgency"
-        item-value="idAgency"
+        item-value="nameAgency"
         label="Filter by agency"
       ></v-select>
-    </v-flex>-->
+    </v-flex>
 
-    <v-flex xs6>
+    <!-- <v-flex xs6>
       <v-text-field
-        v-model="search"
+        v-model=""
         append-icon="mdi-magnify"
         label="Search"
         single-line
         hide-details
       ></v-text-field>
-    </v-flex>
+    </v-flex>-->
 
     <v-flex xs12 sm12 md12 lg12>
       <v-data-table :headers="headers" :items="consultants" :search="search" class="elevation-1">
@@ -92,7 +92,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'ConsultantsList',
+  name: "ConsultantsList",
   components: {},
   data() {
     return {
@@ -107,7 +107,7 @@ export default {
       editedItem: {
         lastNameConsultant: "",
         firstNameConsultant: "",
-        idAgency: 0,
+        idAgency: "",
         startsAfterMonthConsultant: 0,
         startsAfterYearConsultant: 0,
         leavesAfterMonthConsultant: 0,
@@ -159,23 +159,14 @@ export default {
       this.dialog = true;
     },
     updateConsultant(id) {
-      const updatedConsultant = {
-        lastNameConsultant: this.editedItem.lastNameConsultant.toUpperCase(),
-        firstNameConsultant: this.editedItem.firstNameConsultant,
-        idAgency: this.editedItem.idAgency,
-        startsAfterMonthConsultant: this.editedItem.startsAfterMonthConsultant,
-        startsAfterYearConsultant: this.editedItem.startsAfterYearConsultant,
-        leavesAfterMonthConsultant: this.editedItem.leavesAfterMonthConsultant,
-        leavesAfterYearConsultant: this.editedItem.leavesAfterYearConsultant
-      };
       if (this.editedIndex > -1) {
         Object.assign(this.consultants[this.editedIndex], this.editedItem);
         axios
-          .put(`http://localhost:3000/consultants/${id}`, updatedConsultant)
+          .put(`http://localhost:3000/consultants/${id}`, this.editedItem)
           .then(response => {
-            response.data
-            this.dialog = false
-            this.$emit("updatedConsultant")
+            response.data;
+            this.dialog = false;
+            this.$emit("updatedConsultant");
           })
           .catch(error => {
             console.log(error);
