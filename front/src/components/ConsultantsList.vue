@@ -2,26 +2,27 @@
   <v-layout row wrap>
     <v-flex xs6>
       <v-select
-        v-model="search"
+        v-model="sortBy"
         :items="agencies"
         item-text="nameAgency"
         item-value="nameAgency"
         label="Filter by agency"
+        clean
       ></v-select>
     </v-flex>
 
     <!-- <v-flex xs6>
       <v-text-field
-        v-model=""
         append-icon="mdi-magnify"
+        v-model="search"
         label="Search"
         single-line
         hide-details
       ></v-text-field>
-    </v-flex>-->
+    </v-flex> -->
 
     <v-flex xs12 sm12 md12 lg12>
-      <v-data-table :headers="headers" :items="consultants" :search="search" class="elevation-1">
+      <v-data-table :headers="headers" :items="consultants" :search="sortBy" class="elevation-1">
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="800px">
             <v-card>
@@ -96,7 +97,8 @@ export default {
   components: {},
   data() {
     return {
-      search: "",
+      search: '',
+      sortBy: '',
       idAgency: "",
       idConsultant: "",
       dialog: false,
