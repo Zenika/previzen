@@ -6,8 +6,8 @@
         <v-icon>mdi-account-multiple-plus</v-icon>
       </v-btn>
     </template>
+
     <v-card>
-      <v-alert v-model="success" type="success">Consultant successfully added !</v-alert>
       <v-card-title>Add a new consultant</v-card-title>
       <v-form class="mx-5" rel="form">
         <v-row>
@@ -38,6 +38,7 @@
           :rules="agencyRules"
           required
         ></v-select>
+
         <v-row>
           <v-col cols="12" xs="6" sm="6" md="6" lg="6">
             <v-menu
@@ -54,6 +55,7 @@
                   label="Contract start date"
                   prepend-icon="mdi-calendar"
                   v-model="startDate"
+                  required
                   readonly
                 ></v-text-field>
               </template>
@@ -80,6 +82,7 @@
                   label="Contract end date"
                   prepend-icon="mdi-calendar"
                   v-model="endDate"
+                  required
                   readonly
                 ></v-text-field>
               </template>
@@ -92,14 +95,12 @@
             </v-menu>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12" xs="6" sm="6" md="2">
-            <v-btn @click="createConsultant()" color="success">Create</v-btn>
-          </v-col>
-          <v-col cols="12" xs="6" sm="6" md="2">
-            <v-btn @click="dialog = false" color="red">Cancel</v-btn>
-          </v-col>
-        </v-row>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="createConsultant()">Create</v-btn>
+        </v-card-actions>
       </v-form>
     </v-card>
   </v-dialog>
@@ -113,7 +114,7 @@ export default {
     return {
       lastNameConsultant: "",
       firstNameConsultant: "",
-      idAgency: null,
+      idAgency: "",
       agencies: [],
       startDate: "",
       endDate: "",
@@ -123,13 +124,7 @@ export default {
       dateRules: [v => !!v || "Date is required !"],
       dialog: false,
       menu: false,
-      menu2: false,
-      success: false,
-      editedConsultant: -1,
-      editedIndex: {
-        lastNameConsultant: "",
-        firstNameConsultant: ""
-      }
+      menu2: false
     };
   },
   methods: {
@@ -144,24 +139,23 @@ export default {
       let newConsultant = {
         lastNameConsultant: this.lastNameConsultant.toUpperCase(),
         firstNameConsultant: this.firstNameConsultant,
-        idAgency: this.idAgency,
+        idAgency: parseInt(this.idAgency),
         startsAfterMonthConsultant: parseInt(arrayStartDate[1]),
         startsAfterYearConsultant: parseInt(arrayStartDate[0]),
         leavesAfterMonthConsultant: parseInt(arrayEndDate[1]),
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
       };
-
-      console.log(newConsultant);
-
+      console.log('Awesome! You added a new consultant.');
       axios
         .post("http://localhost:3000/consultants", newConsultant)
         .then(response => {
-          response.data;
+          response.data
+          this.dialog = false
+          this.$emit("consultantAdded")
         })
         .catch(error => {
           throw error;
         });
-      this.dialog = false;
     }
   },
   created() {
