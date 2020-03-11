@@ -8,7 +8,7 @@
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
         <v-list-item>
-          <addConsultant @consultantAdded="success = true; text = text[0]" />
+          <addConsultant @consultantAdded="success = true; text = 'Awesome! You successfully added this consultant.'" />
         </v-list-item>
         <v-list-item>
           <addAgency />
@@ -26,7 +26,7 @@
 
     <v-content>
       <v-container>
-        <ConsultantsList @updatedConsultant="success = true; text = text[1]" />
+        <ConsultantsList @updatedConsultant="success = true; text = 'Awesome! You successfully updated this consultant.'" />
       </v-container>
     </v-content>
 
@@ -58,10 +58,7 @@ export default {
   data: () => ({
     drawer: false,
     success: false,
-    text: [
-      "Awesome! You successfully added this consultant.",
-      "Awesome! You successfully updated this consultant."
-    ],
+    text: '',
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",
