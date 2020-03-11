@@ -128,7 +128,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("loadAgencies")
+    this.$store.dispatch("getAgencies")
   },
   computed: {
     ...mapState(["agencies"])

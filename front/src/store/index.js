@@ -10,31 +10,31 @@ export default new Vuex.Store({
     agencies: []
   },
   mutations: {
-    SET_CONSULTANTS(state, consultants) {
+    GET_CONSULTANTS(state, consultants) {
       state.consultants = consultants;
     },
-    SET_AGENCIES(state, agencies) {
+    GET_AGENCIES(state, agencies) {
       state.agencies = agencies;
     }
   },
   actions: {
-    loadConsultants({ commit }) {
+    getConsultants({ commit }) {
       axios
         .get("http://localhost:3000/consultants")
         .then(response => {
           let consultants = response.data;
-          commit("SET_CONSULTANTS", consultants);
+          commit("GET_CONSULTANTS", consultants);
         })
         .catch(error => {
           throw error;
         });
     },
-    loadAgencies({ commit }) {
+    getAgencies({ commit }) {
       axios
         .get("http://localhost:3000/agencies")
         .then(response => {
           let agencies = response.data;
-          commit("SET_AGENCIES", agencies);
+          commit("GET_AGENCIES", agencies);
         })
         .catch(error => {
           throw error;
