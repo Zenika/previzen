@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-flex xs6>
       <v-select
-        v-model="sortBy"
+        v-model="search"
         :items="agencies"
         item-text="nameAgency"
         item-value="nameAgency"
@@ -11,7 +11,7 @@
       ></v-select>
     </v-flex>
 
-    <!-- <v-flex xs6>
+    <v-flex xs6>
       <v-text-field
         append-icon="mdi-magnify"
         v-model="search"
@@ -19,10 +19,10 @@
         single-line
         hide-details
       ></v-text-field>
-    </v-flex> -->
+    </v-flex>
 
     <v-flex xs12 sm12 md12 lg12>
-      <v-data-table :headers="headers" :items="consultants" :search="sortBy" class="elevation-1">
+      <v-data-table :headers="headers" :items="consultants" :search="search" class="elevation-1">
         <template v-slot:top>
           <v-dialog v-model="dialog" max-width="800px">
             <v-card>
@@ -91,20 +91,18 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "ConsultantsList",
   components: {},
+  props: {
+    search: []
+  },
   data() {
     return {
-      search: '',
-      sortBy: '',
-      idAgency: "",
-      idConsultant: "",
       dialog: false,
       enabled: null,
-      agencies: [],
-      consultants: [],
       editedIndex: -1,
       editedItem: {
         lastNameConsultant: "",
@@ -140,21 +138,14 @@ export default {
       ]
     };
   },
-  computed: {},
+  mounted() {
+    this.$store.dispatch("loadConsultants");
+    this.$store.dispatch("loadAgencies");
+  },
+  computed: {
+    ...mapState(["consultants", "agencies"])
+  },
   methods: {
-    getAllConsultants() {
-      axios
-        .get("http://localhost:3000/consultants")
-        .then(response => (this.consultants = response.data))
-        .catch(error => {
-          throw error;
-        });
-    },
-    getAllAgencies() {
-      axios
-        .get("http://localhost:3000/agencies")
-        .then(response => (this.agencies = response.data));
-    },
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -188,10 +179,6 @@ export default {
           console.log(error);
         });
     }
-  },
-  created() {
-    this.getAllConsultants();
-    this.getAllAgencies();
   }
 };
 </script>
