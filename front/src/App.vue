@@ -8,7 +8,7 @@
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
         <v-list-item>
-          <addConsultant @consultantAdded="success = true; text = 'Awesome! You successfully added this consultant.'" />
+          <addConsultant @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'" />
         </v-list-item>
         <v-list-item>
           <addAgency />

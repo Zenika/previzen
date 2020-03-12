@@ -149,9 +149,9 @@ export default {
       axios
         .post("http://localhost:3000/consultants", newConsultant)
         .then(response => {
-          response.data
-          this.dialog = false
-          this.$emit("consultantAdded")
+          response.data;
+          this.dialog = false;
+          this.$emit("consultantAdded");
         })
         .catch(error => {
           throw error;
