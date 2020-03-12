@@ -1,25 +1,17 @@
 <template>
   <v-app id="inspire">
+    <v-snackbar v-model="success" :timeout="4000" top color="success">
+      <span>{{ text }}</span>
+      <v-btn color="white" text @click="success = false">Close</v-btn>
+    </v-snackbar>
+
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item>
+          <addConsultant @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'" />
         </v-list-item>
-
-        <v-list-item link>
-          <v-list-item-action>
-            <v-icon>mdi-contact-mail</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>Contact</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item>
+          <addAgency />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -34,7 +26,7 @@
 
     <v-content>
       <v-container>
-        <h1>{{ hello }}</h1>
+        <ConsultantsList @updatedConsultant="success = true; text = 'Awesome! You successfully updated this consultant.'" />
       </v-container>
     </v-content>
 
@@ -49,14 +41,24 @@
 
 <script>
 import axios from "axios";
+import ConsultantsList from "@/components/ConsultantsList";
+import addConsultant from "@/components/addConsultant";
+import addAgency from "@/components/addAgency";
 export default {
+  components: {
+    ConsultantsList,
+    addConsultant,
+    addAgency
+  },
   name: "LayoutsDemosBaselineFlipped",
 
   props: {
     source: String
   },
   data: () => ({
-    drawer: null,
+    drawer: false,
+    success: false,
+    text: '',
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",
@@ -65,10 +67,8 @@ export default {
     hello: null
   }),
   mounted() {
-    axios
-        .get("http://localhost:3000")
-        .then(res => {
-            this.hello = res.data;
+    axios.get("http://localhost:3000").then(res => {
+      this.hello = res.data;
     });
   }
 };
