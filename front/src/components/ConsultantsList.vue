@@ -131,6 +131,10 @@ export default {
           value: "idAgency.nameAgency"
         },
         {
+          text: "Consultant's Customer",
+          value: ""
+        },
+        {
           text: "Actions",
           value: "action",
           sortable: false
@@ -162,7 +166,7 @@ export default {
             this.$emit("updatedConsultant");
           })
           .catch(error => {
-            console.log(error);
+            throw error;
           });
       } else {
         this.consultants.push(this.editedItem);
@@ -170,14 +174,17 @@ export default {
     },
     deleteConsultant(id) {
       const index = this.consultants.indexOf(id);
-      confirm("Are you sure you want to delete this consultant?") &&
-        this.consultants.splice(index, 1);
+      if (confirm("Are you sure you want to delete this consultant?") === true ) {
       axios
         .delete(`http://localhost:3000/consultants/${id}`)
-        .then(response => response.data)
+        .then(response => {
+          response.data;
+          this.consultants.splice(index, 1);
+        })
         .catch(error => {
-          console.log(error);
+          throw error;
         });
+      }
     }
   }
 };
