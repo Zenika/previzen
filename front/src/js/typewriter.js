@@ -1,8 +1,6 @@
 import $ from './jquery-3.4.1.min.js'
 
-export default {
-
-}
+export default {}
 
 // values to keep track of the number of letters typed, which quote to use. etc. Don't change these values.
 var i = 0,
