@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import axios from "axios";
 export default {
   name: "addConsultant",
@@ -115,7 +116,6 @@ export default {
       lastNameConsultant: "",
       firstNameConsultant: "",
       idAgency: "",
-      agencies: [],
       startDate: "",
       endDate: "",
       lastNameRules: [v => !!v || "Last Name is required !"],
@@ -127,12 +127,13 @@ export default {
       menu2: false
     };
   },
+  mounted() {
+    this.$store.dispatch("getAgencies")
+  },
+  computed: {
+    ...mapState(["agencies"])
+  },
   methods: {
-    getAllAgencies() {
-      axios
-        .get("http://localhost:3000/agencies")
-        .then(response => (this.agencies = response.data));
-    },
     createConsultant() {
       const arrayStartDate = this.startDate.split("-");
       const arrayEndDate = this.endDate.split("-");
@@ -145,7 +146,6 @@ export default {
         leavesAfterMonthConsultant: parseInt(arrayEndDate[1]),
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
       };
-      console.log('Awesome! You added a new consultant.');
       axios
         .post("http://localhost:3000/consultants", newConsultant)
         .then(response => {
@@ -157,9 +157,6 @@ export default {
           throw error;
         });
     }
-  },
-  created() {
-    this.getAllAgencies();
   }
 };
 </script>
