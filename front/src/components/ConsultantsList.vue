@@ -142,7 +142,7 @@ export default {
       ]
     };
   },
-  created() {
+  mounted() {
     this.$store.dispatch("getConsultants");
     this.$store.dispatch("getAgencies");
   },
