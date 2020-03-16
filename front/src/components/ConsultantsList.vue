@@ -30,14 +30,14 @@
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.lastNameConsultant" label="Last Name"></v-text-field>
+                      <v-text-field v-model="editedConsultant.lastNameConsultant" label="Last Name"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field v-model="editedItem.firstNameConsultant" label="First Name"></v-text-field>
+                      <v-text-field v-model="editedConsultant.firstNameConsultant" label="First Name"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-select
-                        v-model="editedItem.idAgency"
+                        v-model="editedConsultant.idAgency"
                         :items="agencies"
                         item-text="nameAgency"
                         item-value="idAgency"
@@ -47,24 +47,24 @@
                     </v-col>
                     <v-col cols="12" sm="6" md="3">
                       <v-text-field
-                        v-model="editedItem.startsAfterMonthConsultant"
+                        v-model="editedConsultant.startsAfterMonthConsultant"
                         label="Start month"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="3">
                       <v-text-field
-                        v-model="editedItem.startsAfterYearConsultant"
+                        v-model="editedConsultant.startsAfterYearConsultant"
                         label="Start year"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="3">
                       <v-text-field
-                        v-model="editedItem.leavesAfterMonthConsultant"
+                        v-model="editedConsultant.leavesAfterMonthConsultant"
                         label="End month"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="3">
-                      <v-text-field v-model="editedItem.leavesAfterYearConsultant" label="End year"></v-text-field>
+                      <v-text-field v-model="editedConsultant.leavesAfterYearConsultant" label="End year"></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -75,7 +75,7 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="updateConsultant(editedItem.idConsultant)"
+                  @click="updateConsultant(editedConsultant.idConsultant)"
                 >Edit</v-btn>
               </v-card-actions>
             </v-card>
@@ -104,7 +104,7 @@ export default {
       dialog: false,
       enabled: null,
       editedIndex: -1,
-      editedItem: {
+      editedConsultant: {
         lastNameConsultant: "",
         firstNameConsultant: "",
         idAgency: "",
@@ -152,14 +152,14 @@ export default {
   methods: {
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.editedConsultant = Object.assign({}, item);
       this.dialog = true;
     },
     updateConsultant(id) {
       if (this.editedIndex > -1) {
-        Object.assign(this.consultants[this.editedIndex], this.editedItem);
+        Object.assign(this.consultants[this.editedIndex], this.editedConsultant);
         axios
-          .put(`http://localhost:3000/consultants/${id}`, this.editedItem)
+          .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
           .then(response => {
             response.data;
             this.dialog = false;
@@ -169,7 +169,7 @@ export default {
             throw error;
           });
       } else {
-        this.consultants.push(this.editedItem);
+        this.consultants.push(this.editedConsultant);
       }
     },
     deleteConsultant(id) {
@@ -179,7 +179,7 @@ export default {
         .delete(`http://localhost:3000/consultants/${id}`)
         .then(response => {
           response.data;
-          this.consultants.splice(index, 1);
+          this.consultants.splice(index);
         })
         .catch(error => {
           throw error;
