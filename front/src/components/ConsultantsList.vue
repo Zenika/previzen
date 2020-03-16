@@ -75,7 +75,7 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="updateConsultant(editedConsultant.idConsultant)"
+                  @click="saveConsultant(editedConsultant.idConsultant)"
                 >Edit</v-btn>
               </v-card-actions>
             </v-card>
@@ -83,7 +83,7 @@
         </template>
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editConsultant(item)">mdi-cogs</v-icon>
-          <v-icon small @click="deleteConsultant(item.idConsultant)">mdi-delete</v-icon>
+          <v-icon small @click="removeConsultant(item.idConsultant)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-flex>
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import axios from "axios";
 export default {
   name: "ConsultantsList",
@@ -142,7 +142,7 @@ export default {
       ]
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("getConsultants");
     this.$store.dispatch("getAgencies");
   },
@@ -150,6 +150,7 @@ export default {
     ...mapState(["consultants", "agencies"])
   },
   methods: {
+    ...mapActions(["updateConsultant", "deleteConsultant"]),
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedConsultant = Object.assign({}, item);
@@ -172,18 +173,9 @@ export default {
         this.consultants.push(this.editedConsultant);
       }
     },
-    deleteConsultant(id) {
-      const index = this.consultants.indexOf(id);
-      if (confirm("Are you sure you want to delete this consultant?") === true ) {
-      axios
-        .delete(`http://localhost:3000/consultants/${id}`)
-        .then(response => {
-          response.data;
-          this.consultants.splice(index);
-        })
-        .catch(error => {
-          throw error;
-        });
+    removeConsultant(id) {
+      if (confirm("Are you sure you want to delete this consultant?") === true) {
+        this.deleteConsultant(id);
       }
     }
   }
