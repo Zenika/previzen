@@ -8,7 +8,7 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { ConsultantsModule } from './consultants/consultants.module';
 import { CustomersModule } from './customers/customers.module';
-import {Customer} from "./customers/customer.entity";
+import { Customer } from './customers/customer.entity';
 
 @Module({
   imports: [
