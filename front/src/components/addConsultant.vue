@@ -148,6 +148,7 @@ export default {
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
       })
       this.dialog = false;
+      this.$store.dispatch("getConsultants");
       this.$emit("consultantAdded");
     }
   }
