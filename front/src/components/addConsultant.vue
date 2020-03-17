@@ -99,7 +99,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="createConsultant()">Create</v-btn>
+          <v-btn color="blue darken-1" text @click="addConsultant()">Create</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -107,8 +107,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "addConsultant",
   data() {
@@ -128,16 +127,18 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getAgencies")
+    this.$store.dispatch("getAgencies"),
+    this.$store.dispatch("getConsultants")
   },
   computed: {
-    ...mapState(["agencies"])
+    ...mapState(["agencies", "consultants"])
   },
   methods: {
-    createConsultant() {
+    ...mapActions(["createConsultant"]),
+    addConsultant() {
       const arrayStartDate = this.startDate.split("-");
       const arrayEndDate = this.endDate.split("-");
-      let newConsultant = {
+      this.createConsultant({
         lastNameConsultant: this.lastNameConsultant.toUpperCase(),
         firstNameConsultant: this.firstNameConsultant,
         idAgency: parseInt(this.idAgency),
@@ -145,17 +146,9 @@ export default {
         startsAfterYearConsultant: parseInt(arrayStartDate[0]),
         leavesAfterMonthConsultant: parseInt(arrayEndDate[1]),
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
-      };
-      axios
-        .post("http://localhost:3000/consultants", newConsultant)
-        .then(response => {
-          response.data;
-          this.dialog = false;
-          this.$emit("consultantAdded");
-        })
-        .catch(error => {
-          throw error;
-        });
+      })
+      this.dialog = false;
+      this.$emit("consultantAdded");
     }
   }
 };
