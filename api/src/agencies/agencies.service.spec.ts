@@ -29,7 +29,7 @@ describe('Agencies Service', () => {
     );
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.resetAllMocks();
   });
 
