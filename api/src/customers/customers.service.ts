@@ -21,4 +21,13 @@ export class CustomersService {
   create(customer: Customer): Promise<Customer> {
     return this.customersRepository.save(customer);
   }
+
+  update(id_customer: string, customer: Customer): Promise<Customer> {
+    customer.idCustomer = parseInt(id_customer);
+    return this.customersRepository.save(customer);
+  }
+
+  async remove(id_customer: string): Promise<void> {
+    await this.customersRepository.delete(id_customer);
+  }
 }
