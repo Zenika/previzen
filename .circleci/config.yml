@@ -35,9 +35,12 @@ jobs: # a collection of steps to execute
                     name: print-ls
                     command: ls -la
                     background: true
+            - run: # install dependencies from package.json
+                    name: npm-install
+                    command: npm install        
             - run: # run tests with jest
-                  name: test
-                  command: npm run test
+                    name: test
+                    command: npm run test
 
 workflows:
     version: 2
