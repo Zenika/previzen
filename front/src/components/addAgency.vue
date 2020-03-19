@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>Add a new agency</v-card-title>
-      <v-form class="mx-5" rel="form">
+      <v-form rel="form" class="mx-5">
         <v-row>
           <v-col cols="12" sm="6" md="6">
             <v-text-field label="Agency name" v-model="nameAgency" :rules="rules" required></v-text-field>
@@ -56,8 +56,7 @@ export default {
         cityAgency: this.cityAgency,
         countryAgency: this.countryAgency
       };
-      console.table(newAgency);
-
+      console.table(newAgency)
       axios
         .post("http://localhost:3000/agencies", newAgency)
         .then(response => {
@@ -68,6 +67,8 @@ export default {
           throw error;
         });
     }
+  },
+  computed: {
   }
 };
 </script>

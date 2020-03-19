@@ -75,7 +75,7 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="saveConsultant(editedConsultant.idConsultant)"
+                  @click="updateConsultant(editedConsultant.idConsultant)"
                 >Edit</v-btn>
               </v-card-actions>
             </v-card>
@@ -83,7 +83,7 @@
         </template>
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editConsultant(item)">mdi-cogs</v-icon>
-          <v-icon small @click="removeConsultant(item.idConsultant)">mdi-delete</v-icon>
+          <v-icon small @click="deleteConsultant(item.idConsultant)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-flex>
@@ -91,13 +91,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "ConsultantsList",
   components: {},
   props: {
-    search: []
+    search: [],
   },
   data() {
     return {
@@ -143,14 +143,17 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getConsultants");
-    this.$store.dispatch("getAgencies");
+    this.$store.dispatch("consultants/GET_CONSULTANTS");
+    this.$store.dispatch("agencies/GET_AGENCIES");
   },
   computed: {
-    ...mapState(["consultants", "agencies"])
+    ...mapState("consultants", ["consultants"]),
+    ...mapState("agencies", ["agencies"])
   },
   methods: {
-    ...mapActions(["updateConsultant", "deleteConsultant"]),
+    ...mapActions({
+      "DELETE_CONSULTANT": "consultants/DELETE_CONSULTANT"
+    }),
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedConsultant = Object.assign({}, item);
@@ -164,6 +167,7 @@ export default {
           .then(response => {
             response.data;
             this.dialog = false;
+            this.$store.dispatch("consultants/GET_CONSULTANTS");
             this.$emit("updatedConsultant");
           })
           .catch(error => {
@@ -173,9 +177,9 @@ export default {
         this.consultants.push(this.editedConsultant);
       }
     },
-    removeConsultant(id) {
+    deleteConsultant(id) {
       if (confirm("Are you sure you want to delete this consultant?") === true) {
-        this.deleteConsultant(id);
+        this.DELETE_CONSULTANT(id);
       }
     }
   }

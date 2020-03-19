@@ -127,18 +127,21 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getAgencies"),
-    this.$store.dispatch("getConsultants")
+    this.$store.dispatch("agencies/GET_AGENCIES"),
+    this.$store.dispatch("consultants/GET_CONSULTANTS")
   },
   computed: {
-    ...mapState(["agencies", "consultants"])
+    ...mapState("agencies", ["agencies"]),
+    ...mapState("consultants", ["consultants"])
   },
   methods: {
-    ...mapActions(["createConsultant"]),
+    ...mapActions({
+      "CREATE_CONSULTANT": "consultants/CREATE_CONSULTANT"
+    }),
     addConsultant() {
       const arrayStartDate = this.startDate.split("-");
       const arrayEndDate = this.endDate.split("-");
-      this.createConsultant({
+      this.CREATE_CONSULTANT({
         lastNameConsultant: this.lastNameConsultant.toUpperCase(),
         firstNameConsultant: this.firstNameConsultant,
         idAgency: parseInt(this.idAgency),
@@ -148,7 +151,7 @@ export default {
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
       })
       this.dialog = false;
-      this.$store.dispatch("getConsultants");
+      this.$store.dispatch("consultants/GET_CONSULTANTS");
       this.$emit("consultantAdded");
     }
   }
