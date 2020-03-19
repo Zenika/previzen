@@ -13,6 +13,9 @@
         <v-list-item>
           <addAgency />
         </v-list-item>
+        <v-list-item>
+          <AgenciesList />
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -63,11 +66,13 @@ console.log('This application is using a Typewriter' + typewriter);
 import ConsultantsList from "@/components/ConsultantsList";
 import addConsultant from "@/components/addConsultant";
 import addAgency from "@/components/addAgency";
+import AgenciesList from "@/components/AgenciesList";
 export default {
   components: {
     ConsultantsList,
     addConsultant,
-    addAgency
+    addAgency,
+    AgenciesList
   },
   name: "LayoutsDemosBaselineFlipped",
 
