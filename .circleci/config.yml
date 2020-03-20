@@ -1,0 +1,65 @@
+version: 2.1 # use CircleCI 2.1
+
+executors: # define reusable environnement configuration
+    api:
+        docker: # run the steps with Docker
+            - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
+        working_directory: ~/project/api # define the working directory to make all the npm commands relative to /project/api folder
+
+commands: # define reusable config reference
+    save_node_module_cache: # save ./node_modules as cache
+        description: "Saving node_modules cache"
+        steps:
+            - save_cache: # special step to save the dependency cache
+                  key: node-module-cache-{{ checksum "package-lock.json" }}
+                  paths:
+                      - ./node_modules
+    restore_node_module_cache: # restore ./node_modules cache
+        description: "Restoring node_modules cache"
+        steps:
+            - restore_cache: # special step to restore the dependency cache
+                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+                  keys:
+                      - node-module-cache-{{ checksum "package-lock.json" }}
+                      - node-module-cache-
+    helper-log-pwd: # scope: debug - print the current path and all files in the current working directory
+        description: "Print files and path in working directory"
+        steps:
+            - run:
+                  name: Print 'pwd' and 'ls -la'
+                  command: |
+                      pwd
+                      ls -la
+
+jobs: # a collection of steps to execute
+    build-api: # runs not using Workflows must have a `build` job as entry point
+        executor: api
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - run: # update npm
+                  name: Update npm
+                  command: "sudo npm install -g npm@latest"
+            - restore_node_module_cache
+            - run: # install dependencies from package.json
+                  name: Run 'npm install' to install dependencies
+                  command: npm install
+            - save_node_module_cache
+    test-api:
+        executor: api
+        steps:
+            - checkout:
+                  path: ..
+            - restore_node_module_cache
+            - run: # run tests with jest
+                  name: Running tests
+                  command: npm run test
+
+workflows:
+    version: 2
+    build-and-test-api:
+        jobs:
+            - build-api
+            - test-api:
+                  requires:
+                      - build-api
