@@ -86,6 +86,10 @@
           <v-icon small @click="deleteConsultant(item.idConsultant)">mdi-delete</v-icon>
         </template>
       </v-data-table>
+      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+      {{ snackText }}
+        <v-btn text @click="snack = false">Close</v-btn>
+      </v-snackbar>
     </v-flex>
   </v-layout>
 </template>
@@ -101,6 +105,9 @@ export default {
   },
   data() {
     return {
+      snack: false,
+      snackColor: '',
+      snackText: '',
       dialog: false,
       enabled: null,
       editedIndex: -1,
@@ -132,7 +139,7 @@ export default {
         },
         {
           text: "Consultant's Customer",
-          value: ""
+          value: "" // TODO
         },
         {
           text: "Actions",
@@ -143,8 +150,8 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("consultants/GET_CONSULTANTS");
-    this.$store.dispatch("agencies/GET_AGENCIES");
+    this.$store.dispatch("agencies/GET_AGENCIES"),
+    this.$store.dispatch("consultants/GET_CONSULTANTS")
   },
   computed: {
     ...mapState("consultants", ["consultants"]),
@@ -152,6 +159,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      "UPDATE_CONSULTANT": "consultants/UPDATE_CONSULTANT",
       "DELETE_CONSULTANT": "consultants/DELETE_CONSULTANT"
     }),
     editConsultant(item) {
@@ -161,7 +169,6 @@ export default {
     },
     updateConsultant(id) {
       if (this.editedIndex > -1) {
-        Object.assign(this.consultants[this.editedIndex], this.editedConsultant);
         axios
           .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
           .then(response => {
@@ -169,17 +176,18 @@ export default {
             this.dialog = false;
             this.$store.dispatch("consultants/GET_CONSULTANTS");
             this.$emit("updatedConsultant");
+            this.snack = true
+            this.snackColor = 'success'
+            this.snackText = 'Consultant successfully updated'
           })
-          .catch(error => {
-            throw error;
-          });
-      } else {
-        this.consultants.push(this.editedConsultant);
       }
     },
     deleteConsultant(id) {
       if (confirm("Are you sure you want to delete this consultant?") === true) {
         this.DELETE_CONSULTANT(id);
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Consultant successfully deleted'
       }
     }
   }

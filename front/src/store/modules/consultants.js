@@ -13,6 +13,9 @@ const consultants = {
     ADD_CONSULTANT: (state, consultant) => {
       state.consultants.push(consultant);
     },
+    // EDIT_CONSULTANT: (state, editedConsultant) => {
+    //   state.consultants.editedConsultant = editedConsultant
+    // },
     REMOVE_CONSULTANT: (state, id) => {
       const index = state.consultants
       .map(consultants => consultants.idConsultant)
@@ -38,10 +41,15 @@ const consultants = {
         .post("http://localhost:3000/consultants", consultant)
         commit("ADD_CONSULTANT", response.data);
     },
+    // UPDATE_CONSULTANT: async ({ commit }, { id, editedConsultant }) => {
+    //   const response = await axios
+    //     .put(`http://localhost:3000/consultants/${id}`, editedConsultant)
+    //     commit("EDIT_CONSULTANT", response.data)
+    // },
     DELETE_CONSULTANT: async ({ commit }, id) => {
       await axios
         .delete(`http://localhost:3000/consultants/${id}`)
-      commit("REMOVE_CONSULTANT", id)
+      commit("REMOVE_CONSULTANT", id);
     }
   }
 }
