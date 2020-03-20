@@ -11,7 +11,7 @@
           <addConsultant @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'" />
         </v-list-item>
         <v-list-item>
-          <addAgency />
+          <addAgency @agencyAdded="success = true; drawer = false; text = 'Awesome! You successfully added this agency.'"/>
         </v-list-item>
         <v-list-item>
           <AgenciesList />
@@ -64,8 +64,8 @@ import typewriter from "./js/typewriter";
 console.log('This application is using a Typewriter' + typewriter);
 
 import ConsultantsList from "@/components/ConsultantsList";
-import addConsultant from "@/components/addConsultant";
-import addAgency from "@/components/addAgency";
+import addConsultant from "@/components/forms/addConsultant";
+import addAgency from "@/components/forms/addAgency";
 import AgenciesList from "@/components/AgenciesList";
 export default {
   components: {
