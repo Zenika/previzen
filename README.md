@@ -45,36 +45,59 @@ We're working with NestJS CLI, find guide [here](https://docs.nestjs.com/first-s
 
 We're working with Vue.js CLI, find guide [here](https://cli.vuejs.org/guide/).
 
+## Install and run the application
+
+1. Primary step, clone the application:
+
+    `git clone https://github.com/Zenika/previzen.git`
+
+2. Install and run all parts of the application:
+
+    ```
+    $ cd /path-to-previzen-project/
+
+    $ docker-compose up
+
+    $ cd api/
+    $ npm install
+    $ npm run start
+
+    $ cd ../front/
+    $ npm install
+    $ npm run serve
+    ```
+
 ## Running the tests
 
-(TODO) Explain how to run the automated tests for this system
+We're using CircleCI to automated Continuous Integration.
+
+### Running API's tests
+
+Using Jest in NestJS API:
+
+```
+$ cd api/
+$ npm run test
+```
 
 ### Break down into end to end tests
 
-(TODO) Explain what these tests test and why
-
-```
-(TODO) Give an example
-```
+(WIP) Explain what these tests test and why.
 
 ### And coding style tests
 
-(TODO) Explain what these tests test and why
-
-```
-(TODO) Give an example
-```
+(WIP) Explain what these tests test and why.
 
 ## Deployment
 
-Work in progress.
+(WIP) Explain how deploy application.
 
 ## Built With
 
 * [Vue.js](https://vuejs.org/) - The web framework used.
 * [Vuetify](https://vuetifyjs.com/) - The Vue.js UI library used.
 * [Node.js](https://nodejs.org/) - The back-end JavaScript runtime.
-* [Nest.js](https://nestjs.com/) - The back-end API framework.
+* [NestJS](https://nestjs.com/) - The back-end API framework.
 * [NPM](https://www.npmjs.com/) - Dependencies manager for Node.js
 * [PostgreSQL](https://www.postgresql.org/) - The open source relational database.
 * [Docker](https://www.docker.com/) - The platform that uses OS-level virtualization
@@ -86,21 +109,21 @@ Please read [CONTRIBUTING.md]() for details on our code of conduct, and the proc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository (TODO)](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository (WIP)](https://github.com/Zenika/previzen/releases). 
 
 ## Authors
 
-* **Rémi BRIOIS** - *Initial work*
-* **Anthony PILLOT** - *Initial work*
-* **Micke NIEPCERON** - *Initial work*
+* [**Rémi BRIOIS** as @rbriois](https://github.com/rbriois) - *Initial work* - Main contributor
+* [**Anthony PILLOT** as @anthonypillot](https://github.com/anthonypillot) - *Initial work* - Main contributor
+* [**Micke NIEPCERON** as @Monsieurmm]() - *Initial work* - Main contributor
+* [**Logan HAUSPIE** as @lhauspie](https://github.com/lhauspie) - Main contributor
 
 See also the list of [contributors](https://github.com/Zenika/previzen/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the (TODO) License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the License - see the [LICENSE.md (WIP: not define)](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* etc.
+* (WIP).
