@@ -8,13 +8,14 @@
     <v-container fluid>
     <v-data-iterator
       :items="agencies"
+      :items-per-page.sync="itemsPerPage"
       hide-default-footer
     >
       <template v-slot:header>
         <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
           <v-toolbar-title>Agencies</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn text depressed @click="showList = false">
+          <v-btn text @click="showList = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
@@ -119,6 +120,13 @@
                   </v-list-item-content>
                 </v-list-item>
 
+                <v-list-item>
+                  <v-spacer></v-spacer>
+                  <v-btn color="red" text @click="deleteAgency(item.idAgency)">
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </v-list-item>
+
               </v-list>
             </v-card>
           </v-col>
@@ -135,11 +143,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   components: {},
   data: () => ({
+    itemsPerPage: 20,
     snack: false,
     snackColor: '',
     snackText: '',
@@ -149,23 +157,26 @@ export default {
   computed: {
     ...mapState("agencies", ["agencies"])
   },
-  mounted() {
-    this.$store.dispatch("agencies/GET_AGENCIES");
-  },
   methods: {
+    ...mapActions({
+      "DELETE_AGENCY": "agencies/DELETE_AGENCY",
+      "UPDATE_AGENCY": "agencies/UPDATE_AGENCY"
+    }),
+    deleteAgency(id) {
+      if (confirm("Are you sure you want to delete this agency?") === true) {
+        this.DELETE_AGENCY(id);
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Agency successfully deleted'
+      }
+    },
     save(item) {
       this.editedIndex = this.agencies.indexOf(item);
       if (this.editedIndex > -1) {
-        axios
-          .put(`http://localhost:3000/agencies/${item.idAgency}`, item)
-          .then(response => {
-            response.data;
-            this.$store.dispatch("agencies/GET_AGENCIES");
-            this.snack = true
-            this.snackColor = 'success'
-            this.snackText = 'Data saved'
-            this.editedIndex = this.agencies.indexOf(item);
-          })
+        this.UPDATE_AGENCY(item);
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data saved'
       }
     },
   },
