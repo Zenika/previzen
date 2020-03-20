@@ -9,7 +9,7 @@
 
     <v-card>
       <v-card-title>Add a new consultant</v-card-title>
-      <v-form class="mx-5" rel="form">
+      <v-form class="mx-5" v-model="valid">
         <v-row>
           <v-col cols="12" sm="6" md="6">
             <v-text-field
@@ -99,7 +99,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="addConsultant()">Create</v-btn>
+          <v-btn color="blue darken-1" text :disabled="!valid" @click="addConsultant()">Create</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -123,7 +123,8 @@ export default {
       dateRules: [v => !!v || "Date is required !"],
       dialog: false,
       menu: false,
-      menu2: false
+      menu2: false,
+      valid: true
     };
   },
   mounted() {
