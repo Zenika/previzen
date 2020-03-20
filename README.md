@@ -13,33 +13,37 @@ A **business prevision tool** intended to manage the Zenika's consultants, agenc
 
 ## Getting Started
 
-(TODO) These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+*What things you need to install the software and how to install them:*
 
 ```
-(TODO) Give examples
+docker
 ```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-(TODO) Say what the step will be
+To use the `docker-compose.yml` file and deploy Postgres instance.
+How to [download and install](https://www.docker.com/products/docker-desktop) Docker.
 
 ```
-(TODO) Give the example
+npm && node
 ```
 
-And repeat
+We're working with Node.js LTS version and NPM built-in Node.js installation, find it [here](https://nodejs.org/fr/).
+
+### Developper tools *(not usefull to run the application)*
 
 ```
-(TODO) until finished
+@nestjs/cli
 ```
 
-(TODO) End with an example of getting some data out of the system or using it for a little demo
+We're working with NestJS CLI, find guide [here](https://docs.nestjs.com/first-steps).
+
+```
+@vue/cli
+```
+
+We're working with Vue.js CLI, find guide [here](https://cli.vuejs.org/guide/).
 
 ## Running the tests
 
@@ -63,15 +67,18 @@ And repeat
 
 ## Deployment
 
-(TODO) Add additional notes about how to deploy this on a live system
+Work in progress.
 
 ## Built With
 
-* [Vue.js](https://vuejs.org/) - The web framework used
-* [Node.js](https://nodejs.org/) - The back-end JavaScript runtime
-* [Nest.js](https://nestjs.com/) - The back-end API framework
-* [NPM](https://www.npmjs.com/) - **N**ode.js **P**ackage **M**anager and dependency management
-* [PostgreSQL](https://www.postgresql.org/) - The open source relational database
+* [Vue.js](https://vuejs.org/) - The web framework used.
+* [Vuetify](https://vuetifyjs.com/) - The Vue.js UI library used.
+* [Node.js](https://nodejs.org/) - The back-end JavaScript runtime.
+* [Nest.js](https://nestjs.com/) - The back-end API framework.
+* [NPM](https://www.npmjs.com/) - Dependencies manager for Node.js
+* [PostgreSQL](https://www.postgresql.org/) - The open source relational database.
+* [Docker](https://www.docker.com/) - The platform that uses OS-level virtualization
+* [CircleCI](https://circleci.com/) - The CI system used
 
 ## Contributing
 
