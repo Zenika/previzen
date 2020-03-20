@@ -43,7 +43,7 @@
 
     <v-content>
       <v-container>
-        <ConsultantsList @updatedConsultant="success = true; text = 'Awesome! You successfully updated this consultant.'" />
+        <ConsultantsList />
       </v-container>
     </v-content>
 
