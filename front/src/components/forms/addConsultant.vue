@@ -127,10 +127,6 @@ export default {
       valid: true
     };
   },
-  mounted() {
-    this.$store.dispatch("agencies/GET_AGENCIES"),
-    this.$store.dispatch("consultants/GET_CONSULTANTS")
-  },
   computed: {
     ...mapState("agencies", ["agencies"]),
     ...mapState("consultants", ["consultants"])

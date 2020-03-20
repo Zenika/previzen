@@ -49,7 +49,6 @@ const agencies = {
     UPDATE_AGENCY: async ({ commit }, item) => {
       const response = await axios
         .put(`http://localhost:3000/agencies/${item.idAgency}`, item)
-        .then(console.log(item))
         commit("EDIT_AGENCY", response.data)
     }
   }
