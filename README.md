@@ -1,5 +1,12 @@
 # PreviZen
 
+**CircleCI** status:
+
+* **NestJS API build and test workflow** status:
+
+    [![CircleCI](https://circleci.com/gh/Zenika/previzen.svg?style=svg&circle-token=be66da2ab284d941cdd2b38ca812886a04219a06)](<https://circleci.com/gh/Zenika/previzen>)
+___
+
 A **business prevision tool** intended to manage the Zenika's consultants, agencies and customers ecosystem.
 
 *Repository for Lille's trainees (Anthony Pillot @anthonypillot and Micke Niepceron @Monsieurmm)*.
