@@ -29,7 +29,7 @@ describe('Consultants Controller', () => {
     );
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.resetAllMocks();
   });
 

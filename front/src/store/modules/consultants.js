@@ -40,10 +40,11 @@ const consultants = {
       const response = await axios
         .post("http://localhost:3000/consultants", consultant)
         commit("ADD_CONSULTANT", response.data);
+        console.log(response.data)
     },
-    // UPDATE_CONSULTANT: async ({ commit }, { id, editedConsultant }) => {
+    // UPDATE_CONSULTANT: async ({ commit }, id) => {
     //   const response = await axios
-    //     .put(`http://localhost:3000/consultants/${id}`, editedConsultant)
+    //     .put(`http://localhost:3000/consultants/${id}`)
     //     commit("EDIT_CONSULTANT", response.data)
     // },
     DELETE_CONSULTANT: async ({ commit }, id) => {
