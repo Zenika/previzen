@@ -5,23 +5,42 @@ executors: # define reusable environnement configuration
         docker: # run the steps with Docker
             - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
         working_directory: ~/project/api # define the working directory to make all the npm commands relative to /project/api folder
+    front:
+        docker: # run the steps with Docker
+            - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
+        working_directory: ~/project/front # define the working directory to make all the npm commands relative to /project/front folder
 
 commands: # define reusable config reference
-    save_node_module_cache: # save ./node_modules as cache
-        description: "Saving node_modules cache"
+    save_api_node_module_cache: # save ./node_modules as cache
+        description: "Saving node_modules cache in /api"
         steps:
             - save_cache: # special step to save the dependency cache
-                  key: node-module-cache-{{ checksum "package-lock.json" }}
+                  key: api-node-module-cache-{{ checksum "package-lock.json" }}
                   paths:
                       - ./node_modules
-    restore_node_module_cache: # restore ./node_modules cache
-        description: "Restoring node_modules cache"
+    restore_api_node_module_cache: # restore ./node_modules cache
+        description: "Restoring node_modules cache in /api"
         steps:
             - restore_cache: # special step to restore the dependency cache
                   # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
                   keys:
-                      - node-module-cache-{{ checksum "package-lock.json" }}
-                      - node-module-cache-
+                      - api-node-module-cache-{{ checksum "package-lock.json" }}
+                      - api-node-module-cache-
+    save_front_node_module_cache: # save ./node_modules as cache
+        description: "Saving node_modules cache in /front"
+        steps:
+            - save_cache: # special step to save the dependency cache
+                  key: front-node-module-cache-{{ checksum "package-lock.json" }}
+                  paths:
+                      - ./node_modules
+    restore_front_node_module_cache: # restore ./node_modules cache
+        description: "Restoring node_modules cache in /front"
+        steps:
+            - restore_cache: # special step to restore the dependency cache
+                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+                  keys:
+                      - front-node-module-cache-{{ checksum "package-lock.json" }}
+                      - front-node-module-cache-
     helper-log-pwd: # scope: debug - print the current path and all files in the current working directory
         description: "Print files and path in working directory"
         steps:
@@ -40,26 +59,55 @@ jobs: # a collection of steps to execute
             - run: # update npm
                   name: Update npm
                   command: "sudo npm install -g npm@latest"
-            - restore_node_module_cache
+            - restore_api_node_module_cache
             - run: # install dependencies from package.json
                   name: Run 'npm install' to install dependencies
                   command: npm install
-            - save_node_module_cache
+            - save_api_node_module_cache
     test-api:
         executor: api
-        steps:
+        steps: # a collection of executable commands
             - checkout:
                   path: ..
-            - restore_node_module_cache
+            - restore_api_node_module_cache
             - run: # run tests with jest
-                  name: Running tests
+                  name: Running tests with Jest
                   command: npm run test
+
+    build-front: # runs not using Workflows must have a `build` job as entry point
+        executor: front
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - run: # update npm
+                  name: Update npm
+                  command: "sudo npm install -g npm@latest"
+            - restore_front_node_module_cache
+            - run: # install dependencies from package.json
+                  name: Run 'npm install' to install dependencies
+                  command: npm install
+            - save_front_node_module_cache
+    deploy-front:
+        executor: front
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - restore_front_node_module_cache
+            - run: # build Vue.js application intended to deploy
+                  name: Run 'npm run build'
+                  command: npm run build
 
 workflows:
     version: 2
-    build-and-test-api:
+    build-and-test-api: # special workflow to build and test the NestJS API
         jobs:
             - build-api
             - test-api:
                   requires:
                       - build-api
+    build-and-deploy-front: # special workflow to build and deploy the Vue.js application
+        jobs:
+            - build-front
+            - deploy-front:
+                  requires:
+                      - build-front
