@@ -1,9 +1,9 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {CustomersService} from './customers.service';
-import {getRepositoryToken} from '@nestjs/typeorm';
-import {Customer} from './customer.entity';
-import {Repository} from 'typeorm';
-import {CustomersController} from './customers.controller';
+import { Test, TestingModule } from '@nestjs/testing';
+import { CustomersService } from './customers.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Customer } from './customer.entity';
+import { Repository } from 'typeorm';
+import { CustomersController } from './customers.controller';
 
 describe('Customers Service', () => {
   let customersController: CustomersController;
@@ -25,7 +25,7 @@ describe('Customers Service', () => {
     customersController = module.get(CustomersController);
     customersService = module.get<CustomersService>(CustomersService);
     customerRepository = module.get<Repository<Customer>>(
-        getRepositoryToken(Customer)
+      getRepositoryToken(Customer),
     );
   });
 
@@ -37,8 +37,8 @@ describe('Customers Service', () => {
     const expectationResult = [new Customer()];
 
     jest
-        .spyOn(customersService, 'findAll')
-        .mockResolvedValue(expectationResult);
+      .spyOn(customersService, 'findAll')
+      .mockResolvedValue(expectationResult);
 
     expect(await customersService.findAll()).toBe(expectationResult);
   });
@@ -48,8 +48,8 @@ describe('Customers Service', () => {
     const expectationResult = Promise.resolve([new Customer()]);
 
     jest
-        .spyOn(customersService, 'findAll')
-        .mockImplementation(() => expectationResult);
+      .spyOn(customersService, 'findAll')
+      .mockImplementation(() => expectationResult);
 
     expect(await customersService.findAll()).toEqual(mockConsultant);
   });
@@ -59,11 +59,11 @@ describe('Customers Service', () => {
     const mockIdConsultant = '1';
 
     jest
-        .spyOn(customersService, 'findOne')
-        .mockResolvedValue(expectationResult);
+      .spyOn(customersService, 'findOne')
+      .mockResolvedValue(expectationResult);
 
     expect(await customersService.findOne(mockIdConsultant)).toBe(
-        expectationResult,
+      expectationResult,
     );
   });
 
@@ -72,8 +72,8 @@ describe('Customers Service', () => {
     const expectationResult = Promise.resolve(new Customer());
 
     jest
-        .spyOn(customersService, 'create')
-        .mockImplementation(() => expectationResult);
+      .spyOn(customersService, 'create')
+      .mockImplementation(() => expectationResult);
 
     expect(customersService.create(newConsultant)).toEqual(expectationResult);
   });
