@@ -14,7 +14,13 @@
           <addAgency @agencyAdded="success = true; drawer = false; text = 'Awesome! You successfully added this agency.'"/>
         </v-list-item>
         <v-list-item>
+          <addCustomer @customerAdded="success = true; drawer = false; text = 'Awesome! You successfully added this customer.'"/>
+        </v-list-item>
+        <v-list-item>
           <AgenciesList />
+        </v-list-item>
+        <v-list-item>
+          <CustomersList />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -66,13 +72,17 @@ console.log('This application is using a Typewriter' + typewriter);
 import ConsultantsList from "@/components/ConsultantsList";
 import addConsultant from "@/components/forms/addConsultant";
 import addAgency from "@/components/forms/addAgency";
+import addCustomer from "@/components/forms/addCustomer";
 import AgenciesList from "@/components/AgenciesList";
+import CustomersList from "@/components/CustomersList";
 export default {
   components: {
     ConsultantsList,
     addConsultant,
     addAgency,
-    AgenciesList
+    addCustomer,
+    AgenciesList,
+    CustomersList
   },
   name: "LayoutsDemosBaselineFlipped",
 
