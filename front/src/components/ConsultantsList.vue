@@ -95,7 +95,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "ConsultantsList",
@@ -168,20 +168,19 @@ export default {
       this.dialog = true;
     },
     updateConsultant(id) {
-      // if (this.editedIndex > -1) {
-        this.UPDATE_CONSULTANT(id)
-        // axios
-        //   .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
-        //   .then(response => {
-        //     response.data;
-        //     this.dialog = false;
-        //     this.$store.dispatch("consultants/GET_CONSULTANTS");
-        //     this.$emit("updatedConsultant");
-        //     this.snack = true
-        //     this.snackColor = 'success'
-        //     this.snackText = 'Consultant successfully updated'
-        //   })
-      // }
+      if (this.editedIndex > -1) {
+        axios
+          .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
+          .then(response => {
+            response.data;
+            this.dialog = false;
+            this.$store.dispatch("consultants/GET_CONSULTANTS");
+            this.$emit("updatedConsultant");
+            this.snack = true
+            this.snackColor = 'success'
+            this.snackText = 'Consultant successfully updated'
+          })
+      }
     },
     deleteConsultant(id) {
       if (confirm("Are you sure you want to delete this consultant?") === true) {
