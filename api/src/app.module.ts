@@ -7,6 +7,8 @@ import { AgenciesModule } from './agencies/agencies.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { ConsultantsModule } from './consultants/consultants.module';
+import { CustomersModule } from './customers/customers.module';
+import { Customer } from './customers/customer.entity';
 
 @Module({
   imports: [
@@ -17,11 +19,12 @@ import { ConsultantsModule } from './consultants/consultants.module';
       username: 'application',
       password: 'password',
       database: 'previzen',
-      entities: [Consultant, Agency],
+      entities: [Consultant, Customer, Agency],
       synchronize: false,
     }),
     AgenciesModule,
     ConsultantsModule,
+    CustomersModule,
   ],
   providers: [AppService],
   controllers: [AppController],
