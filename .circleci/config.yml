@@ -1,6 +1,10 @@
 version: 2.1 # use CircleCI 2.1
 
 executors: # define reusable environnement configuration
+    sql:
+        docker: # run the steps with Docker
+            - image: circleci/buildpack-deps:latest # with this image as the primary container; this is where all `steps` will run
+        working_directory: ~/project # define the working directory to make all the npm commands relative to /project/sql folder
     api:
         docker: # run the steps with Docker
             - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
@@ -51,6 +55,19 @@ commands: # define reusable config reference
                       ls -la
 
 jobs: # a collection of steps to execute
+    build-postgres: # runs not using Workflows must have a `build` job as entry point
+        executor: sql
+        steps: # a collection of executable commands
+            - checkout
+            - setup_remote_docker # activate the Remote Docker Environment
+            - run: # create and deploy PostgreSQL database with Docker Compose
+                  name: Run 'docker-compose up -d'
+                  command: docker-compose up -d
+            - run: # logs docker-compose result
+                  name: Run 'docker-compose logs'
+                  command: docker-compose logs
+            - helper-log-pwd
+
     build-api: # runs not using Workflows must have a `build` job as entry point
         executor: api
         steps: # a collection of executable commands
@@ -99,15 +116,18 @@ jobs: # a collection of steps to execute
 
 workflows:
     version: 2
-    build-and-test-api: # special workflow to build and test the NestJS API
+    build-database: # special workflow to create and deploy PostgreSQL database with Docker Compose
         jobs:
-            - build-api
-            - test-api:
-                  requires:
-                      - build-api
-    build-and-deploy-front: # special workflow to build and deploy the Vue.js application
-        jobs:
-            - build-front
-            - deploy-front:
-                  requires:
-                      - build-front
+            - build-postgres
+    # build-and-test-api: # special workflow to build and test the NestJS API
+    #     jobs:
+    #         - build-api
+    #         - test-api:
+    #               requires:
+    #                   - build-api
+    # build-and-deploy-front: # special workflow to build and deploy the Vue.js application
+    #     jobs:
+    #         - build-front
+    #         - deploy-front:
+    #               requires:
+    #                   - build-front
