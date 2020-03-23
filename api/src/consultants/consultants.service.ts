@@ -36,7 +36,7 @@ export class ConsultantsService {
     return this.consultantsRepository.save(consultant);
   }
 
-  update(id_consultant: string, consultant: Consultant) {
+  update(id_consultant: string, consultant: Consultant): Promise<Consultant> {
     consultant.idConsultant = parseInt(id_consultant);
     return this.consultantsRepository.save(consultant);
   }
