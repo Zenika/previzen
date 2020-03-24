@@ -137,10 +137,10 @@ export default {
           text: "Consultant's Agency",
           value: "idAgency.nameAgency"
         },
-        {
-          text: "Consultant's Customer",
-          value: "" // TODO
-        },
+        // {
+        //   text: "Consultant's Customer",
+        //   value: "" TODO
+        // },
         {
           text: "Actions",
           value: "action",
@@ -151,11 +151,13 @@ export default {
   },
   mounted() {
     this.$store.dispatch("agencies/GET_AGENCIES"),
-    this.$store.dispatch("consultants/GET_CONSULTANTS")
+    this.$store.dispatch("consultants/GET_CONSULTANTS"),
+    this.$store.dispatch("customers/GET_CUSTOMERS")
   },
   computed: {
     ...mapState("consultants", ["consultants"]),
-    ...mapState("agencies", ["agencies"])
+    ...mapState("agencies", ["agencies"]),
+    ...mapState("customers", ["customers"])
   },
   methods: {
     ...mapActions({
@@ -175,7 +177,6 @@ export default {
             response.data;
             this.dialog = false;
             this.$store.dispatch("consultants/GET_CONSULTANTS");
-            this.$emit("updatedConsultant");
             this.snack = true
             this.snackColor = 'success'
             this.snackText = 'Consultant successfully updated'

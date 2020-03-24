@@ -13,6 +13,9 @@ const consultants = {
     ADD_CONSULTANT: (state, consultant) => {
       state.consultants.push(consultant);
     },
+    EDIT_CONSULTANT: (state, payload) => {
+      state.consultants = payload
+    },
     REMOVE_CONSULTANT: (state, id) => {
       const index = state.consultants
       .map(consultants => consultants.idConsultant)
@@ -34,15 +37,24 @@ const consultants = {
         });
     },
     CREATE_CONSULTANT: async ({ commit }, consultant) => {
-      const response = await axios
+      let response = await axios
         .post("http://localhost:3000/consultants", consultant)
-        commit("ADD_CONSULTANT", response.data);
-        console.log(response.data)
+        if(response.status == 201) {
+          commit("ADD_CONSULTANT", response.data);
+        }
+    },
+    UPDATE_CONSULTANT: async ({ commit }, id) => {
+      let response = await axios
+        .put(`http://localhost:3000/consultants/${id}`);
+        commit("EDIT_CONSULTANT", response.data);
+        console.log(response.data);
     },
     DELETE_CONSULTANT: async ({ commit }, id) => {
-      await axios
+      let response = await axios
         .delete(`http://localhost:3000/consultants/${id}`)
-      commit("REMOVE_CONSULTANT", id);
+        if(response.status == 200 || response.status == 204) {
+          commit("REMOVE_CONSULTANT", id);
+        }
     }
   }
 }
