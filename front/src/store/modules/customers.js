@@ -26,25 +26,19 @@ const customers = {
 
   actions: {
     GET_CUSTOMERS: async ({ commit }) => {
-      await axios
+      let response = await axios
         .get('http://localhost:3000/customers')
-        .then(response => {
-          let customers = response.data;
-          commit("SET_CUSTOMERS", customers)
-        })
-        .catch(error => {
-          throw error
-        })
+        commit("SET_CUSTOMERS", response.data)
     },
     CREATE_CUSTOMER: async ({ commit }, customer) => {
-      const response = await axios
+      let response = await axios
         .post("http://localhost:3000/customers", customer)
         commit("ADD_CUSTOMER", response.data);
     },
     DELETE_CUSTOMER: async ({ commit }, id) => {
-      await axios
+      let response = await axios
         .delete(`http://localhost:3000/customers/${id}`)
-      commit("REMOVE_CUSTOMER", id)
+      commit("REMOVE_CUSTOMER", response.data)
     },
     UPDATE_CUSTOMER: async ({ commit }, item) => {
       const response = await axios

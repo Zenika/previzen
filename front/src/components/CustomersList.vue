@@ -9,16 +9,34 @@
     <v-data-iterator
       :items="customers"
       :items-per-page.sync="itemsPerPage"
+      :search="search"
       hide-default-footer
     >
       <template v-slot:header>
+        <v-row>
         <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
-          <v-toolbar-title>Customers</v-toolbar-title>
+          <v-col cols="4" md="4" sm="4">
+            <v-toolbar-title>Customers</v-toolbar-title>
+          </v-col>
           <v-spacer></v-spacer>
-          <v-btn text @click="showList = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
+          <v-col cols="4" md="4" sm="4">
+          <v-text-field
+            v-model="search"
+            clearable
+            flat
+            solo-inverted
+            hide-details
+            label="Search"
+            max-width="20px"
+          ></v-text-field>
+          </v-col>
+          <v-col cols="1" md="1" sm="2" align="right">
+            <v-btn text @click="showList = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-col>
         </v-toolbar>
+        </v-row>
       </template>
 
       <template v-slot:default="props">
@@ -103,6 +121,7 @@ import { mapState, mapActions } from "vuex";
 export default {
   components: {},
   data: () => ({
+    search: "",
     itemsPerPage: 100,
     snack: false,
     snackColor: '',
