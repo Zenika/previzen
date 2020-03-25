@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" width="400px">
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" text depressed>Add new customer
         <v-icon>mdi-account-box</v-icon>

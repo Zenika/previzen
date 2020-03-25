@@ -1,26 +1,26 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs6>
-      <v-select
-        v-model="search"
-        :items="agencies"
-        item-text="nameAgency"
-        item-value="nameAgency"
-        label="Filter by agency"
-        clean
-      ></v-select>
-    </v-flex>
-
-    <v-flex xs6>
-      <v-text-field
-        append-icon="mdi-magnify"
-        v-model="search"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-flex>
-
+    <v-row class="mx-5">
+      <v-col cols="6" md="4">
+        <v-select
+          v-model="search"
+          :items="agencies"
+          item-text="nameAgency"
+          item-value="nameAgency"
+          label="Filter by agency"
+          clean
+        ></v-select>
+      </v-col>
+      <v-col cols="6" md="4">
+        <v-text-field
+          append-icon="mdi-magnify"
+          v-model="search"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-col>
+    </v-row>
     <v-flex xs12 sm12 md12 lg12>
       <v-data-table :headers="headers" :items="consultants" :search="search" class="elevation-1">
         <template v-slot:top>
@@ -29,13 +29,13 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6" lg="6">
                       <v-text-field v-model="editedConsultant.lastNameConsultant" label="Last Name"></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="6" lg="6">
                       <v-text-field v-model="editedConsultant.firstNameConsultant" label="First Name"></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="12" md="12" lg="12">
                       <v-select
                         v-model="editedConsultant.idAgency"
                         :items="agencies"
@@ -45,25 +45,25 @@
                         required
                       ></v-select>
                     </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedConsultant.startsAfterMonthConsultant"
                         label="Start month"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedConsultant.startsAfterYearConsultant"
                         label="Start year"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="editedConsultant.leavesAfterMonthConsultant"
                         label="End month"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="6">
                       <v-text-field v-model="editedConsultant.leavesAfterYearConsultant" label="End year"></v-text-field>
                     </v-col>
                   </v-row>
@@ -75,7 +75,7 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="updateConsultant(editedConsultant.idConsultant)"
+                  @click="updateConsultant(editedConsultant)"
                 >Edit</v-btn>
               </v-card-actions>
             </v-card>
@@ -95,7 +95,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "ConsultantsList",
@@ -169,18 +168,15 @@ export default {
       this.editedConsultant = Object.assign({}, item);
       this.dialog = true;
     },
-    updateConsultant(id) {
+    updateConsultant(editedconsultant) {
       if (this.editedIndex > -1) {
-        axios
-          .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
-          .then(response => {
-            response.data;
-            this.dialog = false;
-            this.$store.dispatch("consultants/GET_CONSULTANTS");
-            this.snack = true
-            this.snackColor = 'success'
-            this.snackText = 'Consultant successfully updated'
-          })
+        this.UPDATE_CONSULTANT(editedconsultant);
+        this.dialog = false;
+        this.$store.dispatch("agencies/GET_AGENCIES");
+        this.$store.dispatch("consultants/GET_CONSULTANTS");
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Consultant successfully updated'
       }
     },
     deleteConsultant(id) {

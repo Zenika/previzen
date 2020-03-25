@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="800px" v-model="dialog">
+  <v-dialog width="400px" v-model="dialog">
     <template v-slot:activator="{on}">
       <v-btn v-on="on" text depressed>
         Add new consultant
@@ -128,8 +128,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("agencies", ["agencies"]),
-    ...mapState("consultants", ["consultants"])
+    ...mapState("agencies", ["agencies"])
   },
   methods: {
     ...mapActions({
@@ -149,6 +148,7 @@ export default {
       })
       this.dialog = false;
       this.$store.dispatch("consultants/GET_CONSULTANTS");
+      this.$store.dispatch("agencies/GET_AGENCIES");
       this.$emit("consultantAdded");
     }
   }

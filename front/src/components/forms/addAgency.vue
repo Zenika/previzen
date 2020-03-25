@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog">
+  <v-dialog v-model="dialog" width="500px">
     <template v-slot:activator="{ on }">
       <v-btn v-on="on" text depressed>Add new agency
         <v-icon>mdi-home</v-icon>
@@ -10,18 +10,18 @@
       <v-form v-model="valid" class="mx-5">
         <v-row>
           <v-col cols="12" sm="6" md="6">
-            <v-text-field label="Agency name" v-model="nameAgency" :rules="rules" required></v-text-field>
+            <v-text-field label="Name" v-model="nameAgency" :rules="rules" required></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="6">
-            <v-text-field label="Manager's name" v-model="nameManager" :rules="rules" required></v-text-field>
+            <v-text-field label="City" v-model="cityAgency" :rules="rules" required></v-text-field>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="6" md="6">
-            <v-text-field label="Agency city" v-model="cityAgency" :rules="rules" required></v-text-field>
+            <v-text-field label="Manager" v-model="nameManager" :rules="rules" required></v-text-field>
           </v-col>
           <v-col cols="12" sm="6" md="6">
-            <v-text-field label="Agency country" v-model="countryAgency" :rules="rules" required></v-text-field>
+            <v-text-field label="Country" v-model="countryAgency" :rules="rules" required></v-text-field>
           </v-col>
         </v-row>
         <v-card-actions>
