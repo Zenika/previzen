@@ -13,8 +13,8 @@ const consultants = {
     ADD_CONSULTANT: (state, consultant) => {
       state.consultants.push(consultant);
     },
-    EDIT_CONSULTANT: (state, payload) => {
-      state.consultants = payload
+    EDIT_CONSULTANT: (state, editedconsultant) => {
+      state.consultants.editedconsultant = editedconsultant;
     },
     REMOVE_CONSULTANT: (state, id) => {
       const index = state.consultants
@@ -26,15 +26,11 @@ const consultants = {
 
   actions: {
     GET_CONSULTANTS: async ({ commit }) => {
-      await axios
+      let response = await axios
         .get("http://localhost:3000/consultants")
-        .then(response => {
-          let consultants = response.data;
-          commit("SET_CONSULTANTS", consultants);
-        })
-        .catch(error => {
-          throw error;
-        });
+        if(response.status === 200) {
+          commit("SET_CONSULTANTS", response.data)
+        }
     },
     CREATE_CONSULTANT: async ({ commit }, consultant) => {
       let response = await axios
@@ -43,11 +39,13 @@ const consultants = {
           commit("ADD_CONSULTANT", response.data);
         }
     },
-    UPDATE_CONSULTANT: async ({ commit }, id) => {
+    UPDATE_CONSULTANT: async ({ commit }, editedconsultant) => {
+      commit("EDIT_CONSULTANT", editedconsultant)
       let response = await axios
-        .put(`http://localhost:3000/consultants/${id}`);
-        commit("EDIT_CONSULTANT", response.data);
-        console.log(response.data);
+        .put(`http://localhost:3000/consultants/${editedconsultant.idConsultant}`, editedconsultant);
+        if(response.status === 200) {
+          commit("EDIT_CONSULTANT", response.data);
+        }
     },
     DELETE_CONSULTANT: async ({ commit }, id) => {
       let response = await axios

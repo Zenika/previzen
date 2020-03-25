@@ -26,28 +26,22 @@ const agencies = {
 
   actions: {
     GET_AGENCIES: async ({ commit }) => {
-      await axios
+      let response = await axios
         .get('http://localhost:3000/agencies')
-        .then(response => {
-          let agencies = response.data;
-          commit("SET_AGENCIES", agencies)
-        })
-        .catch(error => {
-          throw error
-        })
+        commit("SET_AGENCIES", response.data)
     },
     CREATE_AGENCY: async ({ commit }, agency) => {
-      const response = await axios
+      let response = await axios
         .post("http://localhost:3000/agencies", agency)
         commit("ADD_AGENCY", response.data);
     },
     DELETE_AGENCY: async ({ commit }, id) => {
-      await axios
+      let response = await axios
         .delete(`http://localhost:3000/agencies/${id}`)
-      commit("REMOVE_AGENCY", id)
+        commit("REMOVE_AGENCY", response.data)
     },
     UPDATE_AGENCY: async ({ commit }, item) => {
-      const response = await axios
+      let response = await axios
         .put(`http://localhost:3000/agencies/${item.idAgency}`, item)
         commit("EDIT_AGENCY", response.data)
     }
