@@ -2,9 +2,10 @@ import {
   Column,
   Entity,
   Index,
-  OneToMany,
   PrimaryGeneratedColumn,
+  OneToOne,
 } from 'typeorm';
+import { Staffing } from 'src/staffing/staffing.entity';
 
 @Index('customer_pkey', ['idCustomer'], { unique: true })
 @Entity('customer', { schema: 'public' })
@@ -14,4 +15,10 @@ export class Customer {
 
   @Column('text', { name: 'name_customer' })
   nameCustomer: string;
+
+  @OneToOne(
+    () => Staffing,
+    staffing => staffing.idCustomer,
+  )
+  staffing: Staffing;
 }
