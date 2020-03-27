@@ -87,13 +87,7 @@ jobs: # a collection of steps to execute
                   name: Run 'npm install' to install dependencies
                   command: npm install
             - save_front_node_module_cache
-    deploy-front:
-        executor: front
-        steps: # a collection of executable commands
-            - checkout:
-                  path: ..
-            - restore_front_node_module_cache
-            - run: # build Vue.js application intended to deploy
+            - run: # build application intended to minified javascript code
                   name: Run 'npm run build'
                   command: npm run build
 
@@ -105,9 +99,6 @@ workflows:
             - test-api:
                   requires:
                       - build-api
-    build-and-deploy-front: # special workflow to build and deploy the Vue.js application
+    build-front: # special workflow to build the Vue.js application
         jobs:
             - build-front
-            - deploy-front:
-                  requires:
-                      - build-front
