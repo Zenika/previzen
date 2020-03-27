@@ -11,36 +11,6 @@ executors: # define reusable environnement configuration
         working_directory: ~/project/front # define the working directory to make all the npm commands relative to /project/front folder
 
 commands: # define reusable config reference
-    save_api_node_module_cache: # save ./node_modules as cache
-        description: "Saving node_modules cache in /api"
-        steps:
-            - save_cache: # special step to save the dependency cache
-                  key: api-node-module-cache-{{ checksum "package-lock.json" }}
-                  paths:
-                      - ./node_modules
-    restore_api_node_module_cache: # restore ./node_modules cache
-        description: "Restoring node_modules cache in /api"
-        steps:
-            - restore_cache: # special step to restore the dependency cache
-                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-                  keys:
-                      - api-node-module-cache-{{ checksum "package-lock.json" }}
-                      - api-node-module-cache-
-    save_front_node_module_cache: # save ./node_modules as cache
-        description: "Saving node_modules cache in /front"
-        steps:
-            - save_cache: # special step to save the dependency cache
-                  key: front-node-module-cache-{{ checksum "package-lock.json" }}
-                  paths:
-                      - ./node_modules
-    restore_front_node_module_cache: # restore ./node_modules cache
-        description: "Restoring node_modules cache in /front"
-        steps:
-            - restore_cache: # special step to restore the dependency cache
-                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-                  keys:
-                      - front-node-module-cache-{{ checksum "package-lock.json" }}
-                      - front-node-module-cache-
     helper-log-pwd: # scope: debug - print the current path and all files in the current working directory
         description: "Print files and path in working directory"
         steps:
@@ -49,6 +19,27 @@ commands: # define reusable config reference
                   command: |
                       pwd
                       ls -la
+    save_node_module_cache: # save ./node_modules as cache
+        description: "Saving node_modules cache"
+        parameters:
+            part:
+                type: string
+        steps:
+            - save_cache: # special step to save the dependency cache
+                  key: << parameters.part >>-node-module-cache-{{ checksum "package-lock.json" }}
+                  paths:
+                      - ./node_modules
+    restore_node_module_cache: # restore ./node_modules cache
+        description: "Restoring node_modules cache"
+        parameters:
+            part:
+                type: string
+        steps:
+            - restore_cache: # special step to restore the dependency cache
+                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+                  keys:
+                      - << parameters.part >>-node-module-cache-{{ checksum "package-lock.json" }}
+                      - << parameters.part >>-node-module-cache-
 
 jobs: # a collection of steps to execute
     build-api: # runs not using Workflows must have a `build` job as entry point
@@ -59,17 +50,20 @@ jobs: # a collection of steps to execute
             - run: # update npm
                   name: Update npm
                   command: "sudo npm install -g npm@latest"
-            - restore_api_node_module_cache
+            - restore_node_module_cache:
+                  part: api
             - run: # install dependencies from package.json
                   name: Run 'npm install' to install dependencies
                   command: npm install
-            - save_api_node_module_cache
+            - save_node_module_cache:
+                  part: api
     test-api:
         executor: api
         steps: # a collection of executable commands
             - checkout:
                   path: ..
-            - restore_api_node_module_cache
+            - restore_node_module_cache:
+                  part: api
             - run: # run tests with jest
                   name: Running tests with Jest
                   command: npm run test
@@ -82,11 +76,13 @@ jobs: # a collection of steps to execute
             - run: # update npm
                   name: Update npm
                   command: "sudo npm install -g npm@latest"
-            - restore_front_node_module_cache
+            - restore_node_module_cache:
+                  part: front
             - run: # install dependencies from package.json
                   name: Run 'npm install' to install dependencies
                   command: npm install
-            - save_front_node_module_cache
+            - save_node_module_cache:
+                  part: front
             - run: # build application intended to minified javascript code
                   name: Run 'npm run build'
                   command: npm run build
