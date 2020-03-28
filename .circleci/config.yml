@@ -1,0 +1,100 @@
+version: 2.1 # use CircleCI 2.1
+
+executors: # define reusable environnement configuration
+    api:
+        docker: # run the steps with Docker
+            - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
+        working_directory: ~/project/api # define the working directory to make all the npm commands relative to /project/api folder
+    front:
+        docker: # run the steps with Docker
+            - image: circleci/node:lts # with this image as the primary container; this is where all `steps` will run
+        working_directory: ~/project/front # define the working directory to make all the npm commands relative to /project/front folder
+
+commands: # define reusable config reference
+    helper-log-pwd: # scope: debug - print the current path and all files in the current working directory
+        description: "Print files and path in working directory"
+        steps:
+            - run:
+                  name: Print 'pwd' and 'ls -la'
+                  command: |
+                      pwd
+                      ls -la
+    save_node_module_cache: # save ./node_modules as cache
+        description: "Saving node_modules cache"
+        parameters:
+            part:
+                type: string
+        steps:
+            - save_cache: # special step to save the dependency cache
+                  key: << parameters.part >>-node-module-cache-{{ checksum "package-lock.json" }}
+                  paths:
+                      - ./node_modules
+    restore_node_module_cache: # restore ./node_modules cache
+        description: "Restoring node_modules cache"
+        parameters:
+            part:
+                type: string
+        steps:
+            - restore_cache: # special step to restore the dependency cache
+                  # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+                  keys:
+                      - << parameters.part >>-node-module-cache-{{ checksum "package-lock.json" }}
+                      - << parameters.part >>-node-module-cache-
+
+jobs: # a collection of steps to execute
+    build-api: # runs not using Workflows must have a `build` job as entry point
+        executor: api
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - run: # update npm
+                  name: Update npm
+                  command: "sudo npm install -g npm@latest"
+            - restore_node_module_cache:
+                  part: api
+            - run: # install dependencies from package.json
+                  name: Run 'npm install' to install dependencies
+                  command: npm install
+            - save_node_module_cache:
+                  part: api
+    test-api:
+        executor: api
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - restore_node_module_cache:
+                  part: api
+            - run: # run tests with jest
+                  name: Running tests with Jest
+                  command: npm run test
+
+    build-front: # runs not using Workflows must have a `build` job as entry point
+        executor: front
+        steps: # a collection of executable commands
+            - checkout:
+                  path: ..
+            - run: # update npm
+                  name: Update npm
+                  command: "sudo npm install -g npm@latest"
+            - restore_node_module_cache:
+                  part: front
+            - run: # install dependencies from package.json
+                  name: Run 'npm install' to install dependencies
+                  command: npm install
+            - save_node_module_cache:
+                  part: front
+            - run: # build application intended to minified javascript code
+                  name: Run 'npm run build'
+                  command: npm run build
+
+workflows:
+    version: 2
+    build-and-test-api: # special workflow to build and test the NestJS API
+        jobs:
+            - build-api
+            - test-api:
+                  requires:
+                      - build-api
+    build-front: # special workflow to build the Vue.js application
+        jobs:
+            - build-front
