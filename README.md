@@ -56,7 +56,7 @@ We're working with Vue.js CLI, find guide [here](https://cli.vuejs.org/guide/).
     ```
     $ cd /path-to-previzen-project/
 
-    $ docker-compose up
+    $ docker-compose -p previzen up -d
 
     $ cd api/
     $ npm install
