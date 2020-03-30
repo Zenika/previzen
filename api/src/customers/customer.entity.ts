@@ -5,7 +5,8 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
 } from 'typeorm';
-import { Staffing } from 'src/staffing/staffing.entity';
+
+import { Staffing } from '../staffing/staffing.entity';
 
 @Index('customer_pkey', ['idCustomer'], { unique: true })
 @Entity('customer', { schema: 'public' })

@@ -7,7 +7,7 @@ networks:
 services:
   postgres:
     image: postgres:12
-    container_name: previzen-postgres
+    container_name: previzen
     restart: always
     networks:
       - dev

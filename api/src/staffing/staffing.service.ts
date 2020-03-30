@@ -11,7 +11,14 @@ export class StaffingService {
   ) {}
 
   findAll(): Promise<Staffing[]> {
-    return this.staffingRepository.find();
+    return this.staffingRepository.find({
+      join: {
+        alias: 'customer',
+        leftJoinAndSelect: {
+          id_customer: 'customer.idCustomer'
+        },
+      },
+    });
   }
 
   findOne(id_staffing: string): Promise<Staffing> {

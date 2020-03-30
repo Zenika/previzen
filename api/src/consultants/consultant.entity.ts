@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import { Agency } from '../agencies/agency.entity';
-import { Staffing } from 'src/staffing/staffing.entity';
+import { Staffing } from '../staffing/staffing.entity';
 
 @Index('consultant_pkey', ['idConsultant'], { unique: true })
 @Entity('consultant', { schema: 'public' })
@@ -44,7 +44,7 @@ export class Consultant {
 
   @OneToOne(
     () => Staffing,
-    staffing => staffing.idConsultant
+    staffing => staffing.idConsultant,
   )
   staffing: Staffing;
 }

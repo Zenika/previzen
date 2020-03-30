@@ -33,7 +33,10 @@
                       <v-text-field v-model="editedConsultant.lastNameConsultant" label="Last Name"></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6" lg="6">
-                      <v-text-field v-model="editedConsultant.firstNameConsultant" label="First Name"></v-text-field>
+                      <v-text-field
+                        v-model="editedConsultant.firstNameConsultant"
+                        label="First Name"
+                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="12" md="12" lg="12">
                       <v-select
@@ -64,7 +67,10 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field v-model="editedConsultant.leavesAfterYearConsultant" label="End year"></v-text-field>
+                      <v-text-field
+                        v-model="editedConsultant.leavesAfterYearConsultant"
+                        label="End year"
+                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -72,11 +78,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-                <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="updateConsultant(editedConsultant)"
-                >Edit</v-btn>
+                <v-btn color="blue darken-1" text @click="updateConsultant(editedConsultant)">Edit</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -87,7 +89,7 @@
         </template>
       </v-data-table>
       <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
-      {{ snackText }}
+        {{ snackText }}
         <v-btn text @click="snack = false">Close</v-btn>
       </v-snackbar>
     </v-flex>
@@ -100,13 +102,13 @@ export default {
   name: "ConsultantsList",
   components: {},
   props: {
-    search: [],
+    search: []
   },
   data() {
     return {
       snack: false,
-      snackColor: '',
-      snackText: '',
+      snackColor: "",
+      snackText: "",
       dialog: false,
       enabled: null,
       editedIndex: -1,
@@ -136,10 +138,6 @@ export default {
           text: "Consultant's Agency",
           value: "idAgency.nameAgency"
         },
-        // {
-        //   text: "Consultant's Customer",
-        //   value: "" TODO
-        // },
         {
           text: "Actions",
           value: "action",
@@ -150,8 +148,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch("agencies/GET_AGENCIES"),
-    this.$store.dispatch("consultants/GET_CONSULTANTS"),
-    this.$store.dispatch("customers/GET_CUSTOMERS")
+      this.$store.dispatch("consultants/GET_CONSULTANTS"),
+      this.$store.dispatch("customers/GET_CUSTOMERS");
   },
   computed: {
     ...mapState("consultants", ["consultants"]),
@@ -160,8 +158,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      "UPDATE_CONSULTANT": "consultants/UPDATE_CONSULTANT",
-      "DELETE_CONSULTANT": "consultants/DELETE_CONSULTANT"
+      UPDATE_CONSULTANT: "consultants/UPDATE_CONSULTANT",
+      DELETE_CONSULTANT: "consultants/DELETE_CONSULTANT"
     }),
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
@@ -174,17 +172,19 @@ export default {
         this.dialog = false;
         this.$store.dispatch("agencies/GET_AGENCIES");
         this.$store.dispatch("consultants/GET_CONSULTANTS");
-        this.snack = true
-        this.snackColor = 'success'
-        this.snackText = 'Consultant successfully updated'
+        this.snack = true;
+        this.snackColor = "success";
+        this.snackText = "Consultant successfully updated";
       }
     },
     deleteConsultant(id) {
-      if (confirm("Are you sure you want to delete this consultant?") === true) {
+      if (
+        confirm("Are you sure you want to delete this consultant?") === true
+      ) {
         this.DELETE_CONSULTANT(id);
-        this.snack = true
-        this.snackColor = 'success'
-        this.snackText = 'Consultant successfully deleted'
+        this.snack = true;
+        this.snackColor = "success";
+        this.snackText = "Consultant successfully deleted";
       }
     }
   }

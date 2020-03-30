@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="400px" v-model="dialog">
+  <v-dialog width="500px" v-model="dialog">
     <template v-slot:activator="{on}">
       <v-btn v-on="on" text depressed>
         Add new consultant
@@ -96,6 +96,8 @@
           </v-col>
         </v-row>
 
+        <v-checkbox @click="show = !show" label="Assign a mission"></v-checkbox>
+        <addMission v-show="show" v-model="idCustomer" />
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
@@ -107,9 +109,13 @@
 </template>
 
 <script>
+import addMission from "@/components/forms/addMission";
 import { mapState, mapActions } from "vuex";
 export default {
   name: "addConsultant",
+  components: {
+    addMission
+  },
   data() {
     return {
       lastNameConsultant: "",
@@ -117,6 +123,8 @@ export default {
       idAgency: "",
       startDate: "",
       endDate: "",
+      price: "",
+      idCustomer: "",
       lastNameRules: [v => !!v || "Last Name is required !"],
       firstNameRules: [v => !!v || "First Name is required !"],
       agencyRules: [v => !!v || "You must select an agency !"],
@@ -124,15 +132,17 @@ export default {
       dialog: false,
       menu: false,
       menu2: false,
-      valid: true
+      valid: true,
+      show: false
     };
   },
   computed: {
-    ...mapState("agencies", ["agencies"])
+    ...mapState("agencies", ["agencies"]),
+    ...mapState("customers", ["customers"])
   },
   methods: {
     ...mapActions({
-      "CREATE_CONSULTANT": "consultants/CREATE_CONSULTANT"
+      CREATE_CONSULTANT: "consultants/CREATE_CONSULTANT"
     }),
     addConsultant() {
       const arrayStartDate = this.startDate.split("-");
@@ -145,7 +155,7 @@ export default {
         startsAfterYearConsultant: parseInt(arrayStartDate[0]),
         leavesAfterMonthConsultant: parseInt(arrayEndDate[1]),
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
-      })
+      });
       this.dialog = false;
       this.$store.dispatch("consultants/GET_CONSULTANTS");
       this.$store.dispatch("agencies/GET_AGENCIES");

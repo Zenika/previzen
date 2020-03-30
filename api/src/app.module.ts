@@ -27,7 +27,7 @@ import { Staffing } from './staffing/staffing.entity';
     AgenciesModule,
     ConsultantsModule,
     CustomersModule,
-    StaffingModule
+    StaffingModule,
   ],
   providers: [AppService],
   controllers: [AppController],
