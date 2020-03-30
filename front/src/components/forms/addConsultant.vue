@@ -9,7 +9,7 @@
 
     <v-card>
       <v-card-title>Add a new consultant</v-card-title>
-      <v-form class="mx-5" rel="form">
+      <v-form class="mx-5" v-model="valid">
         <v-row>
           <v-col cols="12" sm="6" md="6">
             <v-text-field
@@ -99,7 +99,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="addConsultant()">Create</v-btn>
+          <v-btn color="blue darken-1" text :disabled="!valid" @click="addConsultant()">Create</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -123,22 +123,22 @@ export default {
       dateRules: [v => !!v || "Date is required !"],
       dialog: false,
       menu: false,
-      menu2: false
+      menu2: false,
+      valid: true
     };
   },
-  mounted() {
-    this.$store.dispatch("getAgencies"),
-    this.$store.dispatch("getConsultants")
-  },
   computed: {
-    ...mapState(["agencies", "consultants"])
+    ...mapState("agencies", ["agencies"]),
+    ...mapState("consultants", ["consultants"])
   },
   methods: {
-    ...mapActions(["createConsultant"]),
+    ...mapActions({
+      "CREATE_CONSULTANT": "consultants/CREATE_CONSULTANT"
+    }),
     addConsultant() {
       const arrayStartDate = this.startDate.split("-");
       const arrayEndDate = this.endDate.split("-");
-      this.createConsultant({
+      this.CREATE_CONSULTANT({
         lastNameConsultant: this.lastNameConsultant.toUpperCase(),
         firstNameConsultant: this.firstNameConsultant,
         idAgency: parseInt(this.idAgency),
@@ -148,6 +148,7 @@ export default {
         leavesAfterYearConsultant: parseInt(arrayEndDate[0])
       })
       this.dialog = false;
+      this.$store.dispatch("consultants/GET_CONSULTANTS");
       this.$emit("consultantAdded");
     }
   }

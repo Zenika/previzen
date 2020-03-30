@@ -7,7 +7,7 @@
     </template>
     <v-card>
       <v-card-title>Add a new agency</v-card-title>
-      <v-form class="mx-5" rel="form">
+      <v-form v-model="valid" class="mx-5">
         <v-row>
           <v-col cols="12" sm="6" md="6">
             <v-text-field label="Agency name" v-model="nameAgency" :rules="rules" required></v-text-field>
@@ -27,7 +27,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
-          <v-btn color="blue darken-1" text @click="createAgency()">Create</v-btn>
+          <v-btn color="blue darken-1" text :disabled="!valid" @click="createAgency()">Create</v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -35,11 +35,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "addAgency",
   data() {
     return {
+      valid: true,
       nameAgency: "",
       nameManager: "",
       cityAgency: "",
@@ -49,25 +50,22 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      "CREATE_AGENCY": "agencies/CREATE_AGENCY"
+    }),
     createAgency() {
-      let newAgency = {
-        nameAgency: this.nameAgency,
-        nameManager: this.nameManager,
-        cityAgency: this.cityAgency,
-        countryAgency: this.countryAgency
-      };
-      console.table(newAgency);
-
-      axios
-        .post("http://localhost:3000/agencies", newAgency)
-        .then(response => {
-          response.data
-          this.dialog = false;
-        })
-        .catch(error => {
-          throw error;
-        });
-    }
+      this.CREATE_AGENCY({
+          nameAgency: this.nameAgency,
+          nameManager: this.nameManager,
+          cityAgency: this.cityAgency.toUpperCase(),
+          countryAgency: this.countryAgency
+      });
+      this.$store.dispatch("agencies/GET_AGENCIES")
+      this.$emit("agencyAdded");
+    },
+  },
+  computed: {
+    ...mapState("agencies", ["agencies"])
   }
 };
 </script>

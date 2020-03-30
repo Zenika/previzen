@@ -11,7 +11,10 @@
           <addConsultant @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'" />
         </v-list-item>
         <v-list-item>
-          <addAgency />
+          <addAgency @agencyAdded="success = true; drawer = false; text = 'Awesome! You successfully added this agency.'"/>
+        </v-list-item>
+        <v-list-item>
+          <AgenciesList />
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -40,7 +43,7 @@
 
     <v-content>
       <v-container>
-        <ConsultantsList @updatedConsultant="success = true; text = 'Awesome! You successfully updated this consultant.'" />
+        <ConsultantsList />
       </v-container>
     </v-content>
 
@@ -61,13 +64,15 @@ import typewriter from "./js/typewriter";
 console.log('This application is using a Typewriter' + typewriter);
 
 import ConsultantsList from "@/components/ConsultantsList";
-import addConsultant from "@/components/addConsultant";
-import addAgency from "@/components/addAgency";
+import addConsultant from "@/components/forms/addConsultant";
+import addAgency from "@/components/forms/addAgency";
+import AgenciesList from "@/components/AgenciesList";
 export default {
   components: {
     ConsultantsList,
     addConsultant,
-    addAgency
+    addAgency,
+    AgenciesList
   },
   name: "LayoutsDemosBaselineFlipped",
 

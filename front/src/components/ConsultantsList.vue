@@ -75,7 +75,7 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="saveConsultant(editedConsultant.idConsultant)"
+                  @click="updateConsultant(editedConsultant.idConsultant)"
                 >Edit</v-btn>
               </v-card-actions>
             </v-card>
@@ -83,24 +83,31 @@
         </template>
         <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editConsultant(item)">mdi-cogs</v-icon>
-          <v-icon small @click="removeConsultant(item.idConsultant)">mdi-delete</v-icon>
+          <v-icon small @click="deleteConsultant(item.idConsultant)">mdi-delete</v-icon>
         </template>
       </v-data-table>
+      <v-snackbar v-model="snack" :timeout="3000" :color="snackColor">
+      {{ snackText }}
+        <v-btn text @click="snack = false">Close</v-btn>
+      </v-snackbar>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
 import axios from "axios";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "ConsultantsList",
   components: {},
   props: {
-    search: []
+    search: [],
   },
   data() {
     return {
+      snack: false,
+      snackColor: '',
+      snackText: '',
       dialog: false,
       enabled: null,
       editedIndex: -1,
@@ -132,7 +139,7 @@ export default {
         },
         {
           text: "Consultant's Customer",
-          value: ""
+          value: "" // TODO
         },
         {
           text: "Actions",
@@ -143,14 +150,18 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getConsultants");
-    this.$store.dispatch("getAgencies");
+    this.$store.dispatch("agencies/GET_AGENCIES"),
+    this.$store.dispatch("consultants/GET_CONSULTANTS")
   },
   computed: {
-    ...mapState(["consultants", "agencies"])
+    ...mapState("consultants", ["consultants"]),
+    ...mapState("agencies", ["agencies"])
   },
   methods: {
-    ...mapActions(["updateConsultant", "deleteConsultant"]),
+    ...mapActions({
+      "UPDATE_CONSULTANT": "consultants/UPDATE_CONSULTANT",
+      "DELETE_CONSULTANT": "consultants/DELETE_CONSULTANT"
+    }),
     editConsultant(item) {
       this.editedIndex = this.consultants.indexOf(item);
       this.editedConsultant = Object.assign({}, item);
@@ -158,24 +169,25 @@ export default {
     },
     updateConsultant(id) {
       if (this.editedIndex > -1) {
-        Object.assign(this.consultants[this.editedIndex], this.editedConsultant);
         axios
           .put(`http://localhost:3000/consultants/${id}`, this.editedConsultant)
           .then(response => {
             response.data;
             this.dialog = false;
+            this.$store.dispatch("consultants/GET_CONSULTANTS");
             this.$emit("updatedConsultant");
+            this.snack = true
+            this.snackColor = 'success'
+            this.snackText = 'Consultant successfully updated'
           })
-          .catch(error => {
-            throw error;
-          });
-      } else {
-        this.consultants.push(this.editedConsultant);
       }
     },
-    removeConsultant(id) {
+    deleteConsultant(id) {
       if (confirm("Are you sure you want to delete this consultant?") === true) {
-        this.deleteConsultant(id);
+        this.DELETE_CONSULTANT(id);
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Consultant successfully deleted'
       }
     }
   }
