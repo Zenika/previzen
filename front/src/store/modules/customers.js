@@ -29,7 +29,7 @@ const customers = {
       await axios
         .get('http://localhost:3000/customers')
         .then(response => {
-          let customers = response.data;
+          const customers = response.data;
           commit("SET_CUSTOMERS", customers)
         })
         .catch(error => {
@@ -37,7 +37,7 @@ const customers = {
         })
     },
     CREATE_CUSTOMER: async ({ commit }, customer) => {
-      let response = await axios
+      const response = await axios
         .post("http://localhost:3000/customers", customer)
         commit("ADD_CUSTOMER", response.data);
     },
@@ -47,7 +47,7 @@ const customers = {
       commit("REMOVE_CUSTOMER", id)
     },
     UPDATE_CUSTOMER: async ({ commit }, item) => {
-      let response = await axios
+      const response = await axios
         .put(`http://localhost:3000/customers/${item.idCustomer}`, item)
         commit("EDIT_CUSTOMER", response.data)
     }
