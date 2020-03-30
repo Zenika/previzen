@@ -8,16 +8,22 @@
     <v-navigation-drawer app right v-model="drawer">
       <v-list dense>
         <v-list-item>
-          <addConsultant @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'" />
+          <addConsultant
+            @consultantAdded="success = true; drawer = false; text = 'Awesome! You successfully added this consultant.'"
+          />
         </v-list-item>
         <v-list-item>
-          <addAgency @agencyAdded="success = true; drawer = false; text = 'Awesome! You successfully added this agency.'"/>
-        </v-list-item>
-        <v-list-item>
-          <addCustomer @customerAdded="success = true; drawer = false; text = 'Awesome! You successfully added this customer.'"/>
+          <addAgency
+            @agencyAdded="success = true; drawer = false; text = 'Awesome! You successfully added this agency.'"
+          />
         </v-list-item>
         <v-list-item>
           <AgenciesList />
+        </v-list-item>
+        <v-list-item>
+          <addCustomer
+            @customerAdded="success = true; drawer = false; text = 'Awesome! You successfully added this customer.'"
+          />
         </v-list-item>
         <v-list-item>
           <CustomersList />
@@ -67,22 +73,22 @@ import axios from "axios";
 
 import typewriter from "./js/typewriter";
 
-console.log('This application is using a Typewriter' + typewriter);
+console.log("This application is using a Typewriter" + typewriter);
 
 import ConsultantsList from "@/components/ConsultantsList";
 import addConsultant from "@/components/forms/addConsultant";
 import addAgency from "@/components/forms/addAgency";
-import addCustomer from "@/components/forms/addCustomer";
 import AgenciesList from "@/components/AgenciesList";
+import addCustomer from "@/components/forms/addCustomer";
 import CustomersList from "@/components/CustomersList";
 export default {
   components: {
     ConsultantsList,
     addConsultant,
     addAgency,
-    addCustomer,
     AgenciesList,
-    CustomersList
+    CustomersList,
+    addCustomer
   },
   name: "LayoutsDemosBaselineFlipped",
 
@@ -92,7 +98,7 @@ export default {
   data: () => ({
     drawer: false,
     success: false,
-    text: '',
+    text: "",
     application: {
       name: "PreviZen",
       version: "ver. 0.0.1",
@@ -111,7 +117,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
-@import 'assets/css/typewriter.css';
+@import "assets/css/typewriter.css";
 
 .font-pacifico {
   font-family: "Pacifico", cursive;
@@ -174,13 +180,15 @@ TODO Review Zenika icon effect ...
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
 }
-.hvr-hang:hover, .hvr-hang:focus, .hvr-hang:active {
+.hvr-hang:hover,
+.hvr-hang:focus,
+.hvr-hang:active {
   -webkit-animation-name: hvr-hang-sink, hvr-hang;
   animation-name: hvr-hang-sink, hvr-hang;
-  -webkit-animation-duration: .3s, 1.5s;
-  animation-duration: .3s, 1.5s;
-  -webkit-animation-delay: 0s, .3s;
-  animation-delay: 0s, .3s;
+  -webkit-animation-duration: 0.3s, 1.5s;
+  animation-duration: 0.3s, 1.5s;
+  -webkit-animation-delay: 0s, 0.3s;
+  animation-delay: 0s, 0.3s;
   -webkit-animation-timing-function: ease-out, ease-in-out;
   animation-timing-function: ease-out, ease-in-out;
   -webkit-animation-iteration-count: 1, infinite;
@@ -190,5 +198,4 @@ TODO Review Zenika icon effect ...
   -webkit-animation-direction: normal, alternate;
   animation-direction: normal, alternate;
 }
-
 </style>

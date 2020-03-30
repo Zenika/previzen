@@ -29,7 +29,7 @@ const agencies = {
       await axios
         .get('http://localhost:3000/agencies')
         .then(response => {
-          let agencies = response.data;
+          const agencies = response.data;
           commit("SET_AGENCIES", agencies)
         })
         .catch(error => {
