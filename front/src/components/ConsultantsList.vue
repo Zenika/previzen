@@ -137,10 +137,6 @@ export default {
           text: "Consultant's Agency",
           value: "idAgency.nameAgency"
         },
-        // {
-        //   text: "Consultant's Customer",
-        //   value: "" TODO
-        // },
         {
           text: "Actions",
           value: "action",
