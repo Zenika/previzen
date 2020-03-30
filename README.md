@@ -113,7 +113,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 * [**Rémi BRIOIS** as @rbriois](https://github.com/rbriois) - *Initial work* - Main contributor
 * [**Anthony PILLOT** as @anthonypillot](https://github.com/anthonypillot) - *Initial work* - Main contributor
-* [**Micke NIEPCERON** as @Monsieurmm]() - *Initial work* - Main contributor
+* [**Micke NIEPCERON** as @Monsieurmm](https://github.com/Monsieurmm) - *Initial work* - Main contributor
 * [**Logan HAUSPIE** as @lhauspie](https://github.com/lhauspie) - Main contributor
 
 See also the list of [contributors](https://github.com/Zenika/previzen/contributors) who participated in this project.
