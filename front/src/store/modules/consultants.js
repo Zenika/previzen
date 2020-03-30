@@ -13,10 +13,13 @@ const consultants = {
     ADD_CONSULTANT: (state, consultant) => {
       state.consultants.push(consultant);
     },
+    EDIT_CONSULTANT: (state, payload) => {
+      state.consultants = payload
+    },
     REMOVE_CONSULTANT: (state, id) => {
       const index = state.consultants
-      .map(consultants => consultants.idConsultant)
-      .indexOf(id);
+        .map(consultants => consultants.idConsultant)
+        .indexOf(id);
       state.consultants.splice(index, 1);
     }
   },
@@ -26,7 +29,7 @@ const consultants = {
       await axios
         .get("http://localhost:3000/consultants")
         .then(response => {
-          let consultants = response.data;
+          const consultants = response.data;
           commit("SET_CONSULTANTS", consultants);
         })
         .catch(error => {
@@ -36,8 +39,12 @@ const consultants = {
     CREATE_CONSULTANT: async ({ commit }, consultant) => {
       const response = await axios
         .post("http://localhost:3000/consultants", consultant)
-        commit("ADD_CONSULTANT", response.data);
-        console.log(response.data)
+      commit("ADD_CONSULTANT", response.data);
+    },
+    UPDATE_CONSULTANT: async ({ commit }, id) => {
+      const response = await axios
+        .put(`http://localhost:3000/consultants/${id}`);
+      commit("EDIT_CONSULTANT", response.data);
     },
     DELETE_CONSULTANT: async ({ commit }, id) => {
       await axios
