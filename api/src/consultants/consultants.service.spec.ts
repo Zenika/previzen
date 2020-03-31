@@ -1,12 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConsultantsService } from './consultants.service';
-import { ConsultantsController } from './consultants.controller';
 import { Repository } from 'typeorm';
 import { Consultant } from './consultant.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 describe('Consultants Service', () => {
-  let consultantsController: ConsultantsController;
   let consultantsService: ConsultantsService;
   let consultantRepository: Repository<Consultant>;
 
@@ -19,10 +17,8 @@ describe('Consultants Service', () => {
           useClass: Repository,
         },
       ],
-      controllers: [ConsultantsController],
     }).compile();
 
-    consultantsController = module.get(ConsultantsController);
     consultantsService = module.get<ConsultantsService>(ConsultantsService);
     consultantRepository = module.get<Repository<Consultant>>(
       getRepositoryToken(Consultant),
