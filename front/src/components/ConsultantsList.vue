@@ -131,12 +131,12 @@ export default {
           value: "firstNameConsultant"
         },
         {
-          text: "Consultant's ID",
-          value: "idConsultant"
-        },
-        {
           text: "Consultant's Agency",
           value: "idAgency.nameAgency"
+        },
+        {
+          text: "Consultant's ID",
+          value: "idConsultant"
         },
         {
           text: "Actions",
@@ -148,8 +148,8 @@ export default {
   },
   mounted() {
     this.$store.dispatch("agencies/GET_AGENCIES"),
-      this.$store.dispatch("consultants/GET_CONSULTANTS"),
-      this.$store.dispatch("customers/GET_CUSTOMERS");
+    this.$store.dispatch("consultants/GET_CONSULTANTS"),
+    this.$store.dispatch("customers/GET_CUSTOMERS")
   },
   computed: {
     ...mapState("consultants", ["consultants"]),
