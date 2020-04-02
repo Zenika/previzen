@@ -3,7 +3,7 @@ import {
   Entity,
   Index,
   PrimaryGeneratedColumn,
-  OneToOne,
+  OneToMany,
 } from 'typeorm';
 
 import { Staffing } from '../staffing/staffing.entity';
@@ -17,6 +17,6 @@ export class Customer {
   @Column('text', { name: 'name_customer' })
   nameCustomer: string;
 
-  @OneToOne(() => Staffing, (staffing) => staffing.idCustomer)
-  staffing: Staffing;
+  @OneToMany(() => Staffing, (staffings) => staffings.idCustomer)
+  staffings: Staffing;
 }

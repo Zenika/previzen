@@ -4,8 +4,8 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-  OneToOne,
 } from 'typeorm';
 
 import { Agency } from '../agencies/agency.entity';
@@ -39,6 +39,6 @@ export class Consultant {
   @JoinColumn([{ name: 'id_agency', referencedColumnName: 'idAgency' }])
   idAgency: Agency;
 
-  @OneToOne(() => Staffing, (staffing) => staffing.idConsultant)
-  staffing: Staffing;
+  @OneToMany(() => Staffing, (staffings) => staffings.idConsultant)
+  staffings: Staffing;
 }

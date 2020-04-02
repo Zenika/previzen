@@ -3,8 +3,8 @@ import {
   Entity,
   Index,
   PrimaryGeneratedColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import { Customer } from '../customers/customer.entity';
@@ -16,23 +16,23 @@ export class Staffing {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id_staffing' })
   idStaffing: number;
 
-  @Column('text', { name: 'month_staffing' })
+  @Column('integer', { name: 'month_staffing' })
   monthStaffing: number;
 
-  @Column('text', { name: 'year_staffing' })
+  @Column('integer', { name: 'year_staffing' })
   yearStaffing: number;
 
-  @Column('text', { name: 'duration_staffing' })
+  @Column('double precision', { name: 'duration_staffing', precision: 53 })
   durationStaffing: number;
 
-  @Column('text', { name: 'price_staffing' })
+  @Column('integer', { name: 'price_staffing' })
   priceStaffing: number;
 
-  @OneToOne(() => Customer, (customer) => customer.staffing)
+  @ManyToOne(() => Customer, (customer) => customer.staffings)
   @JoinColumn([{ name: 'id_customer', referencedColumnName: 'idCustomer' }])
   idCustomer: Customer;
 
-  @OneToOne(() => Consultant, (consultant) => consultant.staffing)
+  @ManyToOne(() => Consultant, (consultant) => consultant.staffings)
   @JoinColumn([{ name: 'id_consultant', referencedColumnName: 'idConsultant' }])
   idConsultant: Consultant;
 }
