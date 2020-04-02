@@ -55,7 +55,6 @@
 
     <v-content>
       <v-container>
-        <TotalPrice align="right" />
         <ConsultantsList />
       </v-container>
     </v-content>
@@ -82,7 +81,6 @@ import addAgency from "@/components/forms/addAgency";
 import addCustomer from "@/components/forms/addCustomer";
 import AgenciesList from "@/components/AgenciesList";
 import CustomersList from "@/components/CustomersList";
-import TotalPrice from "@/components/TotalPrice";
 export default {
   components: {
     ConsultantsList,
@@ -91,7 +89,6 @@ export default {
     addCustomer,
     AgenciesList,
     CustomersList,
-    TotalPrice
   },
   name: "LayoutsDemosBaselineFlipped",
 
