@@ -36,9 +36,7 @@ describe('Staffing Service', () => {
   it('should return an array of Staffing', async () => {
     const expectationResult = [new Staffing()];
 
-    jest
-      .spyOn(staffingService, 'findAll')
-      .mockResolvedValue(expectationResult);
+    jest.spyOn(staffingService, 'findAll').mockResolvedValue(expectationResult);
 
     expect(await staffingService.findAll()).toBe(expectationResult);
   });
@@ -58,9 +56,7 @@ describe('Staffing Service', () => {
     const expectationResult = new Staffing();
     const mockIdStaffing = '1';
 
-    jest
-      .spyOn(staffingService, 'findOne')
-      .mockResolvedValue(expectationResult);
+    jest.spyOn(staffingService, 'findOne').mockResolvedValue(expectationResult);
 
     expect(await staffingService.findOne(mockIdStaffing)).toBe(
       expectationResult,

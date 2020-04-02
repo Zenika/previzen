@@ -35,16 +35,10 @@ export class Consultant {
   @Column('integer', { name: 'leaves_after_year_consultant', nullable: true })
   leavesAfterYearConsultant: number | null;
 
-  @ManyToOne(
-    () => Agency,
-    agency => agency.consultants,
-  )
+  @ManyToOne(() => Agency, (agency) => agency.consultants)
   @JoinColumn([{ name: 'id_agency', referencedColumnName: 'idAgency' }])
   idAgency: Agency;
 
-  @OneToOne(
-    () => Staffing,
-    staffing => staffing.idConsultant,
-  )
+  @OneToOne(() => Staffing, (staffing) => staffing.idConsultant)
   staffing: Staffing;
 }

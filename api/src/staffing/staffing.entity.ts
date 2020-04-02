@@ -28,17 +28,11 @@ export class Staffing {
   @Column('text', { name: 'price_staffing' })
   priceStaffing: number;
 
-  @OneToOne(
-    () => Customer,
-    customer => customer.staffing,
-  )
+  @OneToOne(() => Customer, (customer) => customer.staffing)
   @JoinColumn([{ name: 'id_customer', referencedColumnName: 'idCustomer' }])
   idCustomer: Customer;
 
-  @OneToOne(
-    () => Consultant,
-    consultant => consultant.staffing,
-  )
+  @OneToOne(() => Consultant, (consultant) => consultant.staffing)
   @JoinColumn([{ name: 'id_consultant', referencedColumnName: 'idConsultant' }])
   idConsultant: Consultant;
 }

@@ -36,9 +36,7 @@ describe('Staffing Controller', () => {
   it('should return an array of Staffing', async () => {
     const mockStaffing = [new Staffing()];
 
-    jest
-      .spyOn(staffingController, 'findAll')
-      .mockResolvedValue(mockStaffing);
+    jest.spyOn(staffingController, 'findAll').mockResolvedValue(mockStaffing);
 
     expect(await staffingController.findAll()).toBe(mockStaffing);
   });
@@ -75,8 +73,6 @@ describe('Staffing Controller', () => {
       .spyOn(staffingController, 'create')
       .mockImplementation(() => expectationResult);
 
-    expect(staffingController.create(newStaffing)).toEqual(
-      expectationResult,
-    );
+    expect(staffingController.create(newStaffing)).toEqual(expectationResult);
   });
 });

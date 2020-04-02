@@ -17,9 +17,6 @@ export class Customer {
   @Column('text', { name: 'name_customer' })
   nameCustomer: string;
 
-  @OneToOne(
-    () => Staffing,
-    staffing => staffing.idCustomer,
-  )
+  @OneToOne(() => Staffing, (staffing) => staffing.idCustomer)
   staffing: Staffing;
 }

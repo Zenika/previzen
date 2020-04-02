@@ -8,15 +8,15 @@ export class StaffingService {
   constructor(
     @InjectRepository(Staffing)
     private readonly staffingRepository: Repository<Staffing>,
-  ) { }
+  ) {}
 
   findAll(): Promise<Staffing[]> {
     return this.staffingRepository.find({
       join: {
         alias: 'staffing',
         leftJoinAndSelect: {
-          consultant: "staffing.idConsultant",
-          customer: "staffing.idCustomer"
+          consultant: 'staffing.idConsultant',
+          customer: 'staffing.idCustomer',
         },
       },
     });
@@ -27,8 +27,8 @@ export class StaffingService {
       join: {
         alias: 'staffing',
         leftJoinAndSelect: {
-          consultant: "staffing.idConsultant",
-          customer: "staffing.idCustomer"
+          consultant: 'staffing.idConsultant',
+          customer: 'staffing.idCustomer',
         },
       },
     });
