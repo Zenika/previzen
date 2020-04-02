@@ -12,7 +12,7 @@
         ></v-select>
       </v-col>
       <v-col cols="6">
-        <v-text-field v-model="price" label="Price"></v-text-field>
+        <v-text-field v-model="priceStaffing" label="Price"></v-text-field>
       </v-col>
     </v-row>
     <v-row>
@@ -38,6 +38,9 @@
           <v-date-picker v-model="staffingDate" @input="menu = false" type="month"></v-date-picker>
         </v-menu>
       </v-col>
+      <v-col cols="6">
+        <v-text-field v-model="durationDate" label="Mission duration"></v-text-field>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -47,24 +50,26 @@ import { mapState } from "vuex";
 export default {
   name: "addMission",
   props: {
-    staffingValue: Number
+    staffingValue: Object
   },
   data() {
     return {
       idCustomer: "",
-      price: "",
+      priceStaffing: "",
       staffingDate: "",
+      durationDate: "",
       menu3: false
     };
   },
   computed: {
-    ...mapState("customers", ["customers"])
+    ...mapState("customers", ["customers"]),
   },
   created() {
-    this.idCustomer = this.staffingValue;
-    this.$watch("idCustomer", staffingValue => {
-      this.$emit("input", staffingValue);
-    });
+    // this.idCustomer = this.staffingValue;
+    // this.$watch("idCustomer", staffingValue => { TO REVIEW
+    //   this.$emit("input", staffingValue);
+    //   console.log(staffingValue)
+    // });
   }
 };
 </script>
