@@ -158,7 +158,6 @@ export default {
       });
       this.dialog = false;
       this.$store.dispatch("consultants/GET_CONSULTANTS");
-      this.$store.dispatch("agencies/GET_AGENCIES");
       this.$emit("consultantAdded");
     }
   }

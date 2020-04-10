@@ -13,8 +13,8 @@ const consultants = {
     ADD_CONSULTANT: (state, consultant) => {
       state.consultants.push(consultant);
     },
-    EDIT_CONSULTANT: (state, editedconsultant) => {
-      state.consultants.editedconsultant = editedconsultant;
+    EDIT_CONSULTANT: (state, editedConsultant) => {
+      state.consultants.editedConsultant = editedConsultant;
     },
     REMOVE_CONSULTANT: (state, id) => {
       const index = state.consultants
@@ -39,10 +39,10 @@ const consultants = {
           commit("ADD_CONSULTANT", response.data);
         }
     },
-    UPDATE_CONSULTANT: async ({ commit }, editedconsultant) => {
-      commit("EDIT_CONSULTANT", editedconsultant)
+    UPDATE_CONSULTANT: async ({ commit }, editedConsultant) => {
+      commit("EDIT_CONSULTANT", editedConsultant)
       let response = await axios
-        .put(`http://localhost:3000/consultants/${editedconsultant.idConsultant}`, editedconsultant);
+        .put(`http://localhost:3000/consultants/${editedConsultant.idConsultant}`, editedConsultant);
         if(response.status === 200) {
           commit("EDIT_CONSULTANT", response.data);
         }

@@ -146,7 +146,7 @@ export default {
       ]
     };
   },
-  mounted() {
+  created() {
     this.$store.dispatch("agencies/GET_AGENCIES"),
     this.$store.dispatch("consultants/GET_CONSULTANTS"),
     this.$store.dispatch("customers/GET_CUSTOMERS")
@@ -166,11 +166,10 @@ export default {
       this.editedConsultant = Object.assign({}, item);
       this.dialog = true;
     },
-    updateConsultant(editedconsultant) {
+    updateConsultant(editedConsultant) {
       if (this.editedIndex > -1) {
-        this.UPDATE_CONSULTANT(editedconsultant);
+        this.UPDATE_CONSULTANT(editedConsultant);
         this.dialog = false;
-        this.$store.dispatch("agencies/GET_AGENCIES");
         this.$store.dispatch("consultants/GET_CONSULTANTS");
         this.snack = true;
         this.snackColor = "success";
@@ -186,7 +185,7 @@ export default {
         this.snackColor = "success";
         this.snackText = "Consultant successfully deleted";
       }
-    }
+    },
   }
 };
 </script>

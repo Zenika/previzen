@@ -65,11 +65,11 @@ export default {
     ...mapState("customers", ["customers"]),
   },
   created() {
-    // this.idCustomer = this.staffingValue;
-    // this.$watch("idCustomer", staffingValue => { TO REVIEW
-    //   this.$emit("input", staffingValue);
-    //   console.log(staffingValue)
-    // });
+    this.idCustomer = this.staffingValue;
+    this.$watch("idCustomer", staffingValue => {
+      this.$emit("input", staffingValue);
+      console.log(staffingValue)
+    });
   }
 };
 </script>
