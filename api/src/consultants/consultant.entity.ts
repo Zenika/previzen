@@ -4,10 +4,12 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Agency } from '../agencies/agency.entity';
+import { Staffing } from '../staffing/staffing.entity';
 
 @Index('consultant_pkey', ['idConsultant'], { unique: true })
 @Entity('consultant', { schema: 'public' })
@@ -33,10 +35,10 @@ export class Consultant {
   @Column('integer', { name: 'leaves_after_year_consultant', nullable: true })
   leavesAfterYearConsultant: number | null;
 
-  @ManyToOne(
-    () => Agency,
-    agency => agency.consultants,
-  )
+  @ManyToOne(() => Agency, (agency) => agency.consultants)
   @JoinColumn([{ name: 'id_agency', referencedColumnName: 'idAgency' }])
   idAgency: Agency;
+
+  @OneToMany(() => Staffing, (staffings) => staffings.idConsultant)
+  staffings: Staffing;
 }
