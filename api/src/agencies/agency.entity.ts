@@ -25,9 +25,6 @@ export class Agency {
   @Column('text', { name: 'country_agency' })
   countryAgency: string;
 
-  @OneToMany(
-    () => Consultant,
-    consultant => consultant.idAgency,
-  )
+  @OneToMany(() => Consultant, (consultant) => consultant.idAgency)
   consultants: Consultant[];
 }
